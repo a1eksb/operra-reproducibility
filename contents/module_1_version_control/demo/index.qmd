@@ -22,6 +22,10 @@ execute:
 
 - Optional: further personalize the repository to your liking.
 
+# Resolving a git conflict
+
+When versions at the same location of a file tracked by git diverge, trying to pull or push will result in a **git conflict**. This has to be resolved manually.
+
 # Additional Resources
 
 -   The Turing Way — Version Control: <https://the-turing-way.netlify.app/reproducible-research/vcs>
