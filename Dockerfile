@@ -1,4 +1,4 @@
-FROM rocker/verse:4.4.3
+FROM rocker/verse:4.5.0
 
 RUN install2.r kableExtra && \
     apt-get update && apt-get install -y --no-install-recommends \
