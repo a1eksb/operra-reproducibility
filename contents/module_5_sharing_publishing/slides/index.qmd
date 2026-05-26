@@ -167,32 +167,11 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 
 ## Putting it all together
 
-:::::: columns
-::: {.column width="55%"}
-![Modified from @Peikert2021](img/workflow-quarto.png)
-:::
 
-:::: {.column width="45%"}
-::: fragment
-Terminal
+![Modified from @peikert2019](img/workflow-quarto.png)
 
-``` {.bash style="font-size:0.85em"}
-# clone git repository
-git clone git@gitlab.uzh.ch:crsuzh/operra-reproducibility.git
 
-# enter project repository
-cd operra-reproducibility/content/module_3_workflow_management/demo/snakemake
 
-# run automated analyses
-snakemake --cores 1
-```
-
-→ `report.html`
-
-[https://gitlab.uzh.ch/crsuzh/operra-reproducibility](https://gitlab.uzh.ch/crsuzh/operra-reproducibility){style="font-size:0.65em"}
-:::
-::::
-::::::
 
 
 ------------------------------------------------------------------------
