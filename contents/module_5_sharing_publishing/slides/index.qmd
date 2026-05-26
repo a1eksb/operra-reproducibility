@@ -168,7 +168,7 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 ## Putting it all together
 
 
-![Modified from @peikert2019](img/workflow-quarto.png)
+![Modified from @peikert2019](img/workflow-quarto.png){fig-align="center" height="400"}
 
 
 
