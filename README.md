@@ -35,7 +35,7 @@ page to set up your environment before the workshop begins.
 
 ## Getting Started
 
-<details>
+<details open>
 <summary><strong>Option 1: Open in GitHub Codespaces</strong> (recommended)</summary>
 
 <br>
