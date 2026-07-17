@@ -1,0 +1,17 @@
+// Auto-opens RStudio in a browser tab when a Codespaces window attaches (no-op in local VS Code sessions).
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Open RStudio (Codespaces)",
+      "type": "shell",
+      "command": "bash .devcontainer/open-rstudio.sh",
+      "runOptions": { "runOn": "folderOpen" },
+      "presentation": {
+        "reveal": "silent",
+        "close": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

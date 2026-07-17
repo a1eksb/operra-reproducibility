@@ -10,19 +10,23 @@
   "shutdownAction": "stopCompose",
   "postStartCommand": "bash -c 'until curl -s --max-time 5 http://localhost:8787 >/dev/null 2>&1; do sleep 2; done && sleep 5'",
   "waitFor": "postStartCommand",
-  "forwardPorts": [8787],
+  "forwardPorts": [8080],
   "portsAttributes": {
-    "8787": {
+    "8080": {
       "label": "RStudio",
-      "onAutoForward": "openBrowserOnce",
+      "onAutoForward": "silent",
       "visibility": "private",
       "protocol": "http"
+    },
+    "8787": {
+      "onAutoForward": "silent"
     }
   },
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "task.allowAutomaticTasks": "on"
       }
     }
   }
