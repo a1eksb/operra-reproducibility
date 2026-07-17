@@ -99,8 +99,6 @@ Open RStudio Server at [http://localhost:8787](http://localhost:8787) — no log
 material. Everything outside `contents/` exists to give
 you an environment those examples run in, or to publish the site.
 
-<details>
-<summary>Full repository layout</summary>
 
 ```
 operra-reproducibility/
@@ -148,8 +146,6 @@ operra-reproducibility/
 ├── LICENSE                          # CC BY 4.0 licence covering the workshop material
 └── README.md                        # This file: setup instructions and repository overview
 ```
-
-</details>
 
 ## Citation
 
