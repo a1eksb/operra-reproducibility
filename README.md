@@ -34,7 +34,10 @@ page to set up your environment before the workshop begins.
 
 ## Getting Started
 
-### Option 1: Open in GitHub Codespaces
+<details>
+<summary><strong>Option 1: Open in GitHub Codespaces</strong> (recommended)</summary>
+
+<br>
 
 - Fork this repository to your account: <https://github.com/a1eksb/operra-reproducibility>
 
@@ -45,9 +48,22 @@ page to set up your environment before the workshop begins.
 
     ![Creating a codespace: open Code → Codespaces → Codespace repository configuration, set Dev container configuration to "Operra - RStudio (project-wide)", then Create codespace](contents/assets/creating-codespaces.gif)
 
-- Navigate to `Ports`and open the provided URL in a new tab
+- Navigate to `Ports` and open the provided URL in a new tab
 
-### Option 2: Running Locally via Docker
+- When you are finished, stop or delete the codespace so it does not keep consuming your free monthly quota.
+  1. Open `Code` → `Codespaces`
+  2. Use the `...` menu next to your codespace:
+  3. **Stop** keeps your work for later, while
+  4. **Delete** removes the codespace and any uncommitted changes in it.
+
+    ![Stopping and deleting a codespace: open Code → Codespaces, then use the ... menu next to the codespace to select Stop or Delete](contents/assets/stopping-deleting-codespaces.gif)
+
+</details>
+
+<details>
+<summary><strong>Option 2: Running Locally via Docker</strong></summary>
+
+<br>
 
 #### Prerequisites
 
@@ -93,6 +109,8 @@ Open RStudio Server at [http://localhost:8787](http://localhost:8787) — no log
 
 > **Note:** RStudio is bound to `127.0.0.1` only, so it is not accessible from other machines on your network.
 
+</details>
+
 ## Repository structure
 
 `contents/` holds both halves of the workshop: the slides, and the hands-on
@@ -135,7 +153,7 @@ operra-reproducibility/
 │       ├── slides/
 │       └── demo/                    # Exercise: publish a release and mint a Zenodo DOI
 │
-├── .devcontainer/rstudio/           # Codespaces dev container ("Operra - RStudio (project-wide)")
+├── .devcontainer/                   # Codespaces dev container ("Operra - RStudio (project-wide)")
 ├── .github/workflows/               # GitHub Actions that build and publish the RStudio image
 ├── .gitlab-ci.yml                   # GitLab CI job that renders the site and deploys it to Pages
 ├── Dockerfile                       # Workshop image: R + Python + Quarto, Snakemake and Nextflow
