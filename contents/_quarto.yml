@@ -90,7 +90,4 @@ format:
         toc-expand: 4
         code-copy: true
 
-execute:
-  jupyter: quarto-env
-
 freeze: auto
