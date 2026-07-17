@@ -43,12 +43,6 @@ For the workshop, step 3 intentionally introduces an extra dependency (`polars`)
 
 The pipeline is defined in `main.nf`. Each step is a `process` block with explicit `input:` and `output:` declarations. Nextflow runs every process in an isolated subdirectory under `work/` and copies final outputs to `results/` via `publishDir`.
 
-### Codespaces
-
-If you want to run this in **GitHub Codespaces**, create a Codespace and select the Dev Container configuration:
-
-- `Operra Module 3 - Nextflow demo` (from `.devcontainer/nextflow/devcontainer.json`)
-
 ### Running
 
 ```bash
@@ -98,12 +92,6 @@ Open the `.html` files in your browser.
 **Directory:** `demo/snakemake/`
 
 The pipeline is defined in `Snakefile`. Each step is a `rule` block. Snakemake infers execution order by matching `output:` of one rule to `input:` of the next. Intermediate outputs go to `work/`, the final report to `results/`.
-
-### Codespaces
-
-If you want to run this in **GitHub Codespaces**, create a Codespace and select the Dev Container configuration:
-
-- `Operra Module 3 - Snakemake demo` (from `.devcontainer/snakemake/devcontainer.json`)
 
 ### Running
 
