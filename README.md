@@ -153,10 +153,10 @@ operra-reproducibility/
 │       ├── slides/
 │       └── demo/                    # Exercise: publish a release and mint a Zenodo DOI
 │
-├── .devcontainer/                   # Codespaces dev container ("Operra - RStudio (project-wide)")
-├── .github/workflows/               # GitHub Actions that build and publish the RStudio image
+├── .devcontainer/                   # Codespaces dev container settings
+├── .github/workflows/               # GitHub Actions that build and publish the workshop docker image
 ├── .gitlab-ci.yml                   # GitLab CI job that renders the site and deploys it to Pages
-├── Dockerfile                       # Workshop image: R + Python + Quarto, Snakemake and Nextflow
+├── Dockerfile                       # Workshop dockerfile that defines the image: R + Python + Quarto, Snakemake and Nextflow
 ├── docker-compose.yaml              # Runs that image as RStudio Server on localhost:8787
 ├── .dockerignore                    # Limits the Docker build context to Dockerfile + requirements
 ├── requirements.txt                 # Pinned Python packages installed into the image and CI
