@@ -38,13 +38,13 @@ page to set up your environment before the workshop begins.
 
 - Fork this repository to your account: <https://github.com/a1eksb/operra-reproducibility>
 
-- Create a new codespace: <https://github.com/codespaces/new>
+- Create a new codespace.
+  1. Select the forked repository.
+  2. Select `Dev container configuration` as "Operra - RStudio (project-wide)"
+  3. Create codespace (this may take several minutes)
 
     ![Creating a codespace: open Code → Codespaces → Codespace repository configuration, set Dev container configuration to "Operra - RStudio (project-wide)", then Create codespace](contents/assets/creating-codespaces.gif)
 
-- Select the forked repository
-- Select `Dev container configuration` as "Operra - RStudio (project-wide)"
-- Create codespace (this may take several minutes)
 - Navigate to `Ports`and open the provided URL in a new tab
 
 ### Option 2: Running Locally via Docker
