@@ -1,6 +1,6 @@
 services:
   pyverse:
-    image: ghcr.io/a1eksb/reproducability:rstudio
+    image: ghcr.io/a1eksb/operra-reproducibility:rstudio
     build: !reset null
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost:8787"]
