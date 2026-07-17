@@ -1,3 +1,4 @@
+// Configures the Docker Compose-based RStudio development environment used by VS Code and Codespaces.
 {
   "name": "Operra - RStudio (project-wide)",
   "dockerComposeFile": [

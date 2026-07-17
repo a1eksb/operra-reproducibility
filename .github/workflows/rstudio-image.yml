@@ -1,3 +1,4 @@
+# Builds and publishes the workshop's RStudio container image to GitHub Container Registry.
 name: RStudio (pyverse) Image
 
 on:

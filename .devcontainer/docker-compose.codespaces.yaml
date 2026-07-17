@@ -1,3 +1,4 @@
+# Adapts the base RStudio Compose service for GitHub Codespaces and adds its Caddy proxy.
 services:
   pyverse:
     image: ghcr.io/a1eksb/operra-reproducibility:rstudio

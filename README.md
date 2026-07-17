@@ -15,7 +15,7 @@ but complete reproducible project: a dynamic report generated from real data, an
 analysis pipeline you run end to end, the container it all runs inside, and a
 published archive with its own DOI.
 
-**No prior experience with Git, Docker, Snakemake or Nextflow is expected** Having seen some R or Python before helps in Module 2, but the exercises are written to be followed without it. The workshop environment runs in your browser, so there is nothing to install.
+**No prior experience with Git, Docker, Snakemake or Nextflow is expected.** Having seen some R or Python before helps in Module 2, but the exercises are written to be followed without it. The workshop environment runs in your browser, so there is nothing to install.
 
 The website for this workshop is: <https://crsuzh.pages.uzh.ch/operra-reproducibility>
 
