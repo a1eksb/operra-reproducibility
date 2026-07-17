@@ -196,9 +196,11 @@ from the pipeline outputs at render time, so they can never go stale.
 | Plot | `ggplot()` + `geom_col()` | `sns.barplot()` |
 | Inline code | `` `{{r}} nrow(df)` `` | `` `{{python}} len(df)` `` |
 
-All libraries are pre-installed in the workshop container. Remember the chunk
-options `#| label: fig-...` and `#| fig-cap:` for the figure, and that paths
-are relative to the `demo/snakemake/` directory where the report is rendered.
+The project-wide workshop container used by GitHub Codespaces and the root
+Docker Compose setup includes all required R and Python packages, you still
+need to load or import them in your setup chunk. Remember the chunk options
+`#| label: fig-...` and `#| fig-cap:` for the figure, and that paths are
+relative to the `demo/snakemake/` directory where the report is rendered.
 :::
 
 ::: {.callout-tip collapse="true"}
