@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Centers the input values and writes the workflow's derived CSV dataset.
 
 import argparse
 import csv
@@ -33,4 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
