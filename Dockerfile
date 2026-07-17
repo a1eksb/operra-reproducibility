@@ -1,4 +1,4 @@
-FROM rocker/verse:4.5.0
+FROM rocker/verse:4.5.0@sha256:de5869209b7073456dbdd4a096f7d1decf9242a7a977279b66396f4ea5660aa3
 
 ARG NEXTFLOW_VERSION=26.04.0
 
