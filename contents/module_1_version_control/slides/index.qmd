@@ -45,11 +45,11 @@ nocite: |
 :::
 
 ::: {.fragment}
- . . . 
+ . . .
 :::
 
 ::: {.fragment}
-Solution: **Version control with Git** 
+Solution: **Version control with Git**
 :::
 
 ------------------------------------------------------------------------
@@ -167,7 +167,7 @@ git push -u origin main
 ## Git for reproducible research
 
 ::: incremental
--   Every commit is a **citable point in time** — link a paper to a specific commit
+-   Every commit is a **citable point in time** (link a paper to a specific commit)
 
 -   Combine with a **data repository** (e.g., Zenodo) to obtain a DOI for a release
 
@@ -204,11 +204,11 @@ Branches are cheap and encourage **experimentation without risk**.
 ## Tips for a clean Git history
 
 ::: incremental
--   Commit **often** and in **logical units** — one concept per commit
+-   Commit **often** and in **logical units** (one concept per commit)
 
 -   Write **informative commit messages** ("Add figure 3", not "update manuscript")
 
--   Avoid tracking large data, generated files, and credentials — **use `.gitignore`**
+-   Avoid tracking large data, generated files, and credentials (**use `.gitignore`**)
 
 -   Prefer **topic branches** over committing directly to `main`
 
@@ -222,7 +222,7 @@ Branches are cheap and encourage **experimentation without risk**.
 ## Typical one-time setup
 
 ::: incremental
--   Create a **personal access token** in user settings (with read & write priveleges)
+-   Create a **personal access token** in user settings (with read & write privileges)
 
 -   **Save** the token (e.g. in a password manager)
 
@@ -230,7 +230,7 @@ Branches are cheap and encourage **experimentation without risk**.
     -   `git config --global user.email "you@example.com"`
     -   `git config --global user.name "Your Name"`
 
--   When asked, fill in the token as `password` 
+-   When asked, fill in the token as `password`
 :::
 
 ------------------------------------------------------------------------

@@ -70,7 +70,7 @@ page to set up your environment before the workshop begins.
 
 - [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
 
-#### Option A — Docker Compose (recommended)
+#### Option A: Docker Compose (recommended)
 
 Clone the repository, then build the image locally and mount the project directory:
 
@@ -79,7 +79,7 @@ docker compose build pyverse --no-cache
 docker compose up -d
 ```
 
-Open RStudio Server at [http://localhost:8787](http://localhost:8787) — no login required.
+Open RStudio Server at [http://localhost:8787](http://localhost:8787) (no login required).
 
 To stop:
 
@@ -87,7 +87,7 @@ To stop:
 docker compose down
 ```
 
-#### Option B — Build and run manually
+#### Option B: Build and run manually
 
 Build the image locally:
 
@@ -106,7 +106,7 @@ docker run --rm -d \
   pyverse
 ```
 
-Open RStudio Server at [http://localhost:8787](http://localhost:8787) — no login required.
+Open RStudio Server at [http://localhost:8787](http://localhost:8787) (no login required).
 
 > **Note:** RStudio is bound to `127.0.0.1` only, so it is not accessible from other machines on your network.
 
@@ -128,7 +128,7 @@ operra-reproducibility/
 │   ├── instructions/                # Setup to complete *before* the workshop starts
 │   │
 │   ├── module_0_introduction/       # What computational reproducibility is and why it matters
-│   │   └── slides/                  # Slides only — no exercise for this module
+│   │   └── slides/                  # Slides only, no exercise for this module
 │   │
 │   ├── module_1_version_control/    # Git and version control
 │   │   ├── slides/

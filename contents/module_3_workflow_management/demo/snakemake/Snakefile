@@ -2,7 +2,7 @@
 # 1. Python centres the values in example_data.csv  → work/1_derived.csv
 # 2. R reads 1_derived.csv and produces summary stats → work/2_summary.txt
 # 3. Python (polars) processes the derived data       → work/3_processed.csv
-# 4. Quarto collects outputs into an HTML report      → results/4_report.html
+# 4. Quarto renders your report (4_report.qmd)        → results/4_report.html
 #
 # Run with:  snakemake --cores 1
 # Run from any directory with:
