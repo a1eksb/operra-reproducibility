@@ -30,7 +30,7 @@ website:
     # site-url is deliberately unset: without it Quarto emits no absolute canonical
     # URLs, so this site stays correct wherever it is served from -- including the
     # GitHub Pages site each fork publishes under its own github.io domain.
-    repo-url: https://github.com/a1eksb/reproducability
+    repo-url: https://github.com/a1eksb/operra-reproducibility
 
     navbar:
         collapse-below: lg
