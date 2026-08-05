@@ -112,6 +112,26 @@ Open RStudio Server at [http://localhost:8787](http://localhost:8787) (no login 
 
 </details>
 
+## Rendering the site
+
+Pushing to `main` renders `contents/` with Quarto and publishes the result to GitHub
+Pages. If you forked this repository, that happens in your fork too, and your copy of the
+site appears under your own `github.io` domain.
+
+The render runs inside the prebuilt workshop image
+`ghcr.io/a1eksb/operra-reproducibility:rstudio`, which is public, so a fork builds nothing
+and its first deploy works straight away. Your `contents/` changes are always picked up:
+the image only supplies the environment, while the site is rendered from the checked-out repository.
+
+Changes to [`Dockerfile`](Dockerfile) or [`requirements.txt`](requirements.txt) are the one exception, since those define the image rather than the content. To render against your own build, push a change to either file so the *RStudio (pyverse) Image* workflow publishes an image under your account, then point the `image:` line in
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) at it:
+
+```yaml
+image: ghcr.io/YOUR-USERNAME/operra-reproducibility:rstudio
+```
+
+Newly published packages are private by default. Either make yours public in your account's package settings, or add `packages: read` to that job's `permissions:` block.
+
 ## Repository structure
 
 `contents/` holds both halves of the workshop: the slides, and the hands-on
@@ -155,13 +175,12 @@ operra-reproducibility/
 │       └── demo/                    # Exercise: publish a release and mint a Zenodo DOI
 │
 ├── .devcontainer/                   # Codespaces dev container settings
-├── .github/workflows/               # GitHub Actions that build and publish the workshop docker image
-├── .gitlab-ci.yml                   # GitLab CI job that renders the site and deploys it to Pages
+├── .github/workflows/               # GitHub Actions that build the workshop docker image and deploy the site to Pages
 ├── Dockerfile                       # Workshop dockerfile that defines the image: R + Python + Quarto, Snakemake and Nextflow
 ├── docker-compose.yaml              # Runs that image as RStudio Server on localhost:8787
 ├── .dockerignore                    # Limits the Docker build context to Dockerfile + requirements
 ├── requirements.txt                 # Pinned Python packages installed into the image and CI
-├── workshop-operra.Rproj            # RStudio project file that opens the repository root
+├── operra-reproducibility.Rproj     # RStudio project file that opens the repository root
 ├── LICENSE                          # CC BY 4.0 licence covering the workshop material
 └── README.md                        # This file: setup instructions and repository overview
 ```
