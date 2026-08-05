@@ -4,8 +4,8 @@ image: rocker/verse:4.5.0
 pages:
   stage: deploy
   before_script:
-    # install R packages
-    - install2.r ggplot2 dplyr kableExtra
+    # install R packages (ggplot2 and dplyr already ship with rocker/verse)
+    - install2.r kableExtra
     # # Install renv and restore project dependencies
     # - R -e "install.packages('renv')"
     # - R -e "renv::restore(confirm = FALSE)"
@@ -15,17 +15,17 @@ pages:
     - pip3 install --no-cache-dir --break-system-packages -r requirements.txt
     - apt-get clean && rm -rf /var/lib/apt/lists/*
 
-  script: 
+  script:
   - cd contents
   - quarto render
   - mkdir ../public/
   - cp -r ./_site/* ../public/
 
- 
-  artifacts:    
+
+  artifacts:
     paths:
-    - public    
-    
+    - public
+
   only:
   - main
   interruptible: true
