@@ -3,13 +3,16 @@ title: "Hands-on: Workflow Management"
 format:
   html:
     toc-depth: 4
+# The solution blocks below contain ```{r} / ```{python} fences; force the
+# plain markdown engine so Quarto does not try to bind knitr or jupyter.
+engine: markdown
 execute:
   eval: false
 ---
 
 # Workflow Demo: One Pipeline, Two Engines
 
-In this hands-on you will run the same 3-step analysis pipeline using two different workflow engines — **Nextflow** and **Snakemake** — and observe how each one manages execution order, caching, and re-runs.
+In this hands-on you will run the same 3-step analysis pipeline using two different workflow engines **Nextflow** and **Snakemake** and observe how each one manages execution order, caching, and re-runs.
 
 The pipeline is identical in both cases:
 
@@ -31,7 +34,7 @@ example_data.csv
                       4_report.qmd  (Quarto)  →  4_report.html   # collect outputs into a report
 ```
 
-You do **not** need to understand the Python or R code in detail — the focus is on the workflow layer around them.
+You do **not** need to understand the Python or R code in detail. The focus is on the workflow layer around them.
 
 For the workshop, step 3 intentionally introduces an extra dependency (`polars`) that may not be installed by default.
 
@@ -42,12 +45,6 @@ For the workshop, step 3 intentionally introduces an extra dependency (`polars`)
 **Directory:** `demo/nextflow/`
 
 The pipeline is defined in `main.nf`. Each step is a `process` block with explicit `input:` and `output:` declarations. Nextflow runs every process in an isolated subdirectory under `work/` and copies final outputs to `results/` via `publishDir`.
-
-### Codespaces
-
-If you want to run this in **GitHub Codespaces**, create a Codespace and select the Dev Container configuration:
-
-- `Operra Module 3 - Nextflow demo` (from `.devcontainer/nextflow/devcontainer.json`)
 
 ### Running
 
@@ -72,7 +69,7 @@ Nextflow caches every task by content hash in `work/`. Pass `-resume` to skip un
 nextflow run main.nf -resume
 ```
 
-If you edit `2_summary.R`, only `R_SUMMARY` and `FINAL_REPORT` re-run — `PY_DERIVE` is served from cache.
+If you edit `2_summary.R`, only `R_SUMMARY` and `FINAL_REPORT` re-run - `PY_DERIVE` is served from cache.
 
 ### Visualise the pipeline
 
@@ -85,9 +82,9 @@ nextflow run main.nf \
   -with-timeline timeline.html
 ```
 
-- `flowchart.svg` — the workflow DAG (needs Graphviz / `dot`)
-- `report.html` — per-task runtime, memory, and CPU usage
-- `timeline.html` — Gantt-style view of when each task ran
+- `flowchart.svg` - the workflow DAG (needs Graphviz / `dot`)
+- `report.html` - per-task runtime, memory, and CPU usage
+- `timeline.html` - Gantt-style view of when each task ran
 
 Open the `.html` files in your browser.
 
@@ -98,12 +95,6 @@ Open the `.html` files in your browser.
 **Directory:** `demo/snakemake/`
 
 The pipeline is defined in `Snakefile`. Each step is a `rule` block. Snakemake infers execution order by matching `output:` of one rule to `input:` of the next. Intermediate outputs go to `work/`, the final report to `results/`.
-
-### Codespaces
-
-If you want to run this in **GitHub Codespaces**, create a Codespace and select the Dev Container configuration:
-
-- `Operra Module 3 - Snakemake demo` (from `.devcontainer/snakemake/devcontainer.json`)
 
 ### Running
 
@@ -162,6 +153,185 @@ snakemake --report report.html
 Open `rulegraph.svg`, `dag.svg`, or `report.html` in your browser. The report includes per-rule runtime, the DAG coloured by status, and any outputs annotated with `report()` in the Snakefile.
 
 > Requires Graphviz (`dot`). The workshop image installs it for you.
+
+### Your turn: write the dynamic report
+
+In the Snakemake variant, the final pipeline step is **yours to write**.
+`4_report.qmd` ships as a skeleton with "Your task" callouts. Apply what you
+learned in the dynamic reporting hands-on ([R version](../../module_2_dynamic_reporting/demo_R/index.qmd),
+[Python version](../../module_2_dynamic_reporting/demo_py/index.qmd)) to turn it
+into a dynamic report that consumes the pipeline outputs:
+
+1. **Setup**: load the libraries of your language of choice.
+2. **Derived data**: read `work/1_derived.csv` and display it as a table with a caption.
+3. **Summary statistics**: read `work/2_summary.txt` with code and print it.
+4. **Processed data**: read `work/3_processed.csv` and plot `value_centered_z` over `year`, with a figure label and caption you can cross-reference.
+5. **Bonus**: report a computed value (e.g., the number of rows) as inline code.
+
+The workflow loop is the point of the exercise: after each edit to
+`4_report.qmd`, re-run
+
+```bash
+snakemake --cores 1
+```
+
+and open `results/4_report.html`. Snakemake notices that only the report file
+changed and re-runs just the `final_report` rule. The analysis steps are
+skipped. If a code chunk errors, `quarto render` fails and Snakemake reports
+the `final_report` rule as failed.
+
+For contrast, the Nextflow variant ships a finished *static* report that embeds
+the output files with `{{{< include >}}}` shortcodes and executes no code. Your
+Snakemake report is *dynamic*: tables, figures, and inline numbers are computed
+from the pipeline outputs at render time, so they can never go stale.
+
+::: {.callout-tip collapse="true"}
+#### Hint: which functions to reach for
+
+| Task | R | Python |
+|------|---|--------|
+| Read a CSV | `read.csv()` | `pd.read_csv()` |
+| Show a table | `kable()` from `kableExtra` | `itables.show()` |
+| Read/print a text file | `readLines()` + `cat()` | `Path(...).read_text()` + `print()` |
+| Plot | `ggplot()` + `geom_col()` | `sns.barplot()` |
+| Inline code | `` `{{r}} nrow(df)` `` | `` `{{python}} len(df)` `` |
+
+The project-wide workshop container used by GitHub Codespaces and the root
+Docker Compose setup includes all required R and Python packages, you still
+need to load or import them in your setup chunk. Remember the chunk options
+`#| label: fig-...` and `#| fig-cap:` for the figure, and that paths are
+relative to the `demo/snakemake/` directory where the report is rendered.
+:::
+
+::: {.callout-tip collapse="true"}
+#### Solution (R)
+
+Replace the contents of `4_report.qmd` with:
+
+````` markdown
+---
+title: "Module 3 Demo: Final Report"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  warning: false
+---
+
+This report is rendered as the final step of the Snakemake pipeline and reads
+the artifacts produced by the earlier steps.
+
+## Setup
+
+```{r}
+#| output: false
+library("dplyr")      # data wrangling
+library("ggplot2")    # plotting
+library("kableExtra") # tables
+```
+
+## Derived data
+
+```{r}
+derived <- read.csv("work/1_derived.csv")
+derived |>
+  kable(caption = "Derived data: values centred by the Python step.")
+```
+
+## Summary statistics
+
+```{r}
+cat(readLines("work/2_summary.txt"), sep = "\n")
+```
+
+## Processed data
+
+```{r}
+#| label: fig-zscores
+#| fig-cap: "Z-scores of the centred values by year."
+#| fig-height: 4
+processed <- read.csv("work/3_processed.csv")
+processed |>
+  ggplot(aes(x = factor(year), y = value_centered_z)) +
+  geom_col() +
+  labs(x = "Year", y = "Z-score") +
+  theme_minimal()
+```
+
+@fig-zscores shows how far each year deviates from the mean.
+
+## Bonus: inline statistics
+
+The processed dataset contains `{r} nrow(processed)` rows covering the years
+`{r} min(processed$year)` to `{r} max(processed$year)`.
+`````
+:::
+
+::: {.callout-tip collapse="true"}
+#### Solution (Python)
+
+Replace the contents of `4_report.qmd` with:
+
+````` markdown
+---
+title: "Module 3 Demo: Final Report"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  warning: false
+---
+
+This report is rendered as the final step of the Snakemake pipeline and reads
+the artifacts produced by the earlier steps.
+
+## Setup
+
+```{python}
+#| output: false
+import pandas as pd              # data wrangling
+import itables                   # nicer tables
+import matplotlib.pyplot as plt  # plotting
+import seaborn as sns            # nicer plots
+from pathlib import Path
+
+sns.set()  # activate seaborn defaults
+```
+
+## Derived data
+
+```{python}
+derived = pd.read_csv("work/1_derived.csv")
+itables.show(derived, caption="Derived data: values centred by the Python step.")
+```
+
+## Summary statistics
+
+```{python}
+print(Path("work/2_summary.txt").read_text())
+```
+
+## Processed data
+
+```{python}
+#| label: fig-zscores
+#| fig-cap: "Z-scores of the centred values by year."
+processed = pd.read_csv("work/3_processed.csv")
+ax = sns.barplot(processed, x="year", y="value_centered_z")
+ax.set(xlabel="Year", ylabel="Z-score")
+plt.tight_layout()
+```
+
+@fig-zscores shows how far each year deviates from the mean.
+
+## Bonus: inline statistics
+
+The processed dataset contains `{python} len(processed)` rows covering the years
+`{python} int(processed["year"].min())` to `{python} int(processed["year"].max())`.
+`````
+:::
 
 ---
 

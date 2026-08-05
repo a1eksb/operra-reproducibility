@@ -1,6 +1,7 @@
+# Adapts the base RStudio Compose service for GitHub Codespaces and adds its Caddy proxy.
 services:
   pyverse:
-    image: ghcr.io/a1eksb/reproducability:rstudio
+    image: ghcr.io/a1eksb/operra-reproducibility:rstudio
     build: !reset null
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost:8787"]
@@ -18,7 +19,7 @@ services:
       CODESPACE_NAME: ${CODESPACE_NAME}
       GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: ${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}
     volumes:
-      - .devcontainer/rstudio/Caddyfile:/etc/caddy/Caddyfile:ro
+      - .devcontainer/Caddyfile:/etc/caddy/Caddyfile:ro
     depends_on:
       pyverse:
         condition: service_healthy

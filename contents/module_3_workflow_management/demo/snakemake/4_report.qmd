@@ -4,42 +4,84 @@ format:
   html:
     toc: true
     embed-resources: true
-execute:
-  eval: false
 ---
 
-This report is rendered **after** the workflow completes.
-It does not execute any analysis code — it simply collects the artifacts
-produced by the earlier pipeline steps.
+This report is the **final step of the Snakemake pipeline** — and it is yours to
+write. Apply what you learned in the dynamic reporting module: read the files
+produced by the earlier pipeline steps with code, and turn them into tables,
+figures, and inline statistics.
 
-## Raw Input Data (`example_data.csv`)
+The pipeline has already produced these artifacts for you:
 
-```text
+| File | Produced by | Contents |
+|------|-------------|----------|
+| `work/1_derived.csv` | `1_derive.py` (Python) | columns `year`, `value`, `value_centered` |
+| `work/2_summary.txt` | `2_summary.R` (R) | `key=value` summary lines |
+| `work/3_processed.csv` | `3_polars_process.py` (polars) | adds a `value_centered_z` column |
 
-{{< include example_data.csv >}}
+Work in whichever language you followed in Module 2 — R and Python are both
+available in the workshop container. After each change, re-run the pipeline and
+open `results/4_report.html`:
 
+```bash
+snakemake --cores 1
 ```
 
-## Derived Data from Python (`1_derived.csv`)
+Notice that only the `final_report` rule re-runs. Snakemake sees that nothing
+upstream of this file changed.
 
-```csv
+## Setup
 
-{{< include work/1_derived.csv >}}
+::: {.callout-note appearance="minimal"}
+**Your task**
 
+Add a code chunk that loads the libraries you need.
+:::
+
+## Derived data
+
+::: {.callout-note appearance="minimal"}
+**Your task**
+
+Read `work/1_derived.csv` in a code chunk and display it as a table with a
+caption.
+:::
+
+## Summary statistics
+
+::: {.callout-note appearance="minimal"}
+**Your task**
+
+Read `work/2_summary.txt` in a code chunk and print its lines. Reading it with code keeps the report
+*dynamic*: whenever the pipeline re-runs, the report picks up the new numbers
+automatically. A static alternative would be the
+`{{{< include work/2_summary.txt >}}}` shortcode. The Nextflow variant of this
+demo does exactly that. But then nothing is computed at render time.
+:::
+
+## Processed data
+
+::: {.callout-note appearance="minimal"}
+**Your task**
+
+Read `work/3_processed.csv` and plot `value_centered_z` over `year`. Give the
+chunk a label and a caption with `#| label: fig-zscores` and `#| fig-cap:`,
+then refer to the figure in your text with `@fig-zscores`.
+:::
+
+## Bonus: inline statistics
+
+::: {.callout-note appearance="minimal"}
+**Your task**
+
+Report a computed value inside a sentence using inline code, so the number can
+never go stale. For example:
+
+``` markdown
+The processed dataset contains `{{r}} nrow(processed)` rows.
 ```
 
-## Summary Statistics from R (`2_summary.txt`)
-
-```text
-
-{{< include work/2_summary.txt >}}
-
+``` markdown
+The processed dataset contains `{{python}} len(processed)` rows.
 ```
-
-## Polars-Processed Data (`3_processed.csv`)
-
-```csv
-
-{{< include work/3_processed.csv >}}
-
-```
+:::

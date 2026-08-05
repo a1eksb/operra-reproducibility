@@ -1,3 +1,4 @@
+# Runs the workshop's RStudio image locally with the repository mounted as the project workspace.
 services:
   pyverse:
     build: .

@@ -1,5 +1,5 @@
 ---
-title: "Requirements" 
+title: "Instructions" 
 
 date: today
 
@@ -27,7 +27,8 @@ With this option, you will work in a Github codespace. Open the whole project in
 - Navigate to `Ports`and open the provided URL in a new tab
 
 ::: {.callout-note} 
-Note that codespace usage is free up to 120 hours per month (at the time of writing). More in the [Github Docs here](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces).
+- Note that codespace usage is free up to 120 hours per month (at the time of writing). More in the [Github Docs here](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces).
+- For students, the [GitHub Student Developer Pack](https://education.github.com/pack) provides additional free codespace usage (besides many other benefits).
 :::
 
 ## Option 2: Work locally with Docker compose

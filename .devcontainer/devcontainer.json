@@ -1,7 +1,8 @@
+// Configures the Docker Compose-based RStudio development environment used by VS Code and Codespaces.
 {
   "name": "Operra - RStudio (project-wide)",
   "dockerComposeFile": [
-    "../../docker-compose.yaml",
+    "../docker-compose.yaml",
     "docker-compose.codespaces.yaml"
   ],
   "service": "pyverse",
@@ -13,7 +14,7 @@
   "portsAttributes": {
     "8080": {
       "label": "RStudio",
-      "onAutoForward": "openBrowser",
+      "onAutoForward": "silent",
       "visibility": "private",
       "protocol": "http"
     },
@@ -24,7 +25,8 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "task.allowAutomaticTasks": "on"
       }
     }
   }

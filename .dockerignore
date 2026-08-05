@@ -1,3 +1,4 @@
+# Excludes all repository files from Docker builds except Dockerfile and requirements.txt.
 *
 !Dockerfile
 !requirements.txt

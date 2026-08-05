@@ -1,4 +1,5 @@
 #!/usr/bin/env Rscript
+# Summarizes the derived CSV with R for downstream workflow steps.
 
 args <- commandArgs(trailingOnly = TRUE)
 

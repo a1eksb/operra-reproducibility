@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Adds a z-score feature using the R summary and writes the processed CSV dataset.
 
 import argparse
 import math
@@ -45,4 +46,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

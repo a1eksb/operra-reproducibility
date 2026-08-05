@@ -17,10 +17,19 @@ example_data.csv
                                                    │
                             ┌───────────────────────┘
                             ▼
-                      4_report.qmd  (Quarto)  →  results/4_report.html
+              4_report.qmd  (Quarto — you write this)  →  results/4_report.html
 ```
 
 Step 3 intentionally introduces an additional dependency (`polars`) that may not be installed by default.
+
+## The final step is yours
+
+`4_report.qmd` ships as a skeleton with "Your task" instructions. Using what
+you learned in the dynamic reporting module, fill it with code chunks that read
+the pipeline outputs (`work/1_derived.csv`, `work/2_summary.txt`,
+`work/3_processed.csv`) and turn them into tables, a figure, and inline
+statistics. The skeleton renders as-is, so the pipeline works before you start.
+Hints and full solutions are on the Module 3 hands-on page.
 
 ## Running the demo
 

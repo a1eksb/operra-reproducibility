@@ -27,8 +27,10 @@ website:
 
     favicon: 'assets/CRSnew_Logo.svg'
 
-    site-url: https://gitlab.uzh.ch/crsuzh/operra-reproducibilty
-    repo-url: https://gitlab.uzh.ch/crsuzh/operra-reproducibilty
+    # site-url is deliberately unset: without it Quarto emits no absolute canonical
+    # URLs, so this site stays correct wherever it is served from -- including the
+    # GitHub Pages site each fork publishes under its own github.io domain.
+    repo-url: https://github.com/a1eksb/reproducability
 
     navbar:
         collapse-below: lg
@@ -89,8 +91,5 @@ format:
         toc: true
         toc-expand: 4
         code-copy: true
-
-execute:
-  jupyter: quarto-env
 
 freeze: auto

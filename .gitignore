@@ -1,3 +1,5 @@
+# Excludes local editor state, generated Quarto output, and workflow scratch files from Git.
+
 # Editor / OS
 .DS_Store
 .Rproj.user
