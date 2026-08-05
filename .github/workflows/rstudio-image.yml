@@ -36,6 +36,10 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/operra-reproducibility:rstudio
             ghcr.io/${{ github.repository_owner }}/operra-reproducibility:rstudio-${{ github.sha }}
+          # Links the package to whichever repository published it. The image name does not
+          # match the repository name, so GHCR cannot infer the link on its own, and a fork
+          # must claim its own repository here rather than inherit a hardcoded upstream one.
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
