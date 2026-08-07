@@ -19,7 +19,7 @@ execute:
 bibliography: references.bib
 ---
 
-This hands-on requires R and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a Github codespace.
+This hands-on requires R and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a GitHub codespace.
 
 # Create a new Quarto file
 
@@ -183,7 +183,7 @@ summaries <- datclean |>
 
 ### Creating a table
 
-We can create a table summarizing our results using the `kable` function. There is either a basic version of `kable` in the [`knitr` package](https://yihui.org/knitr/), or an extended version in the [`kableExtra` package](https://github.com/haozhu233/kableExtra), which we loaded above. See <https://quarto.org/docs/computations/r.html#data-frames> for all options how to display tables from `R`d data frames.
+We can create a table summarizing our results using the `kable` function. There is either a basic version of `kable` in the [`knitr` package](https://yihui.org/knitr/), or an extended version in the [`kableExtra` package](https://github.com/haozhu233/kableExtra), which we loaded above. See <https://quarto.org/docs/computations/r.html#data-frames> for all options for displaying R data frames.
 
 ```{r}
 summaries |>

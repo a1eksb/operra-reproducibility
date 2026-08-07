@@ -14,7 +14,7 @@ execute:
 
 # Exercise
 
--   Create a Release in Github.
+-   Create a Release in GitHub.
 -   Register a Zenodo account -- if you don't already have one.
 -   Start a new upload and reserve a DOI.
 -   Store the entire repository .zip file.
@@ -25,4 +25,3 @@ You now have a persistent, unique identifier for the analysis you created during
 
 -   Zenodo: <https://zenodo.org>
 -   GitHub Docs on Releases: <https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository> 
-
