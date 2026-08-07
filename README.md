@@ -18,19 +18,19 @@ published archive with its own DOI.
 
 **No prior experience with Git, Docker, Snakemake or Nextflow is expected.** Having seen some R or Python before helps in Module 2, but the exercises are written to be followed without it. The workshop environment runs in your browser, so there is nothing to install.
 
-The website for this workshop is: <https://crsuzh.pages.uzh.ch/operra-reproducibility>
+The website for this workshop is: <https://a1eksb.github.io/operra-reproducibility/>
 
 ## Modules
 
-0. [**Introduction**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_0_introduction/slides/): What computational reproducibility is and why it matters
-1. [**Version Control**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_1_version_control/slides/): Git and version control
-2. [**Dynamic Reporting**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_2_dynamic_reporting/slides/): Writing reports where code and prose live together
-3. [**Workflow Management**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_3_workflow_management/slides/): Chaining analysis steps into a reproducible pipeline
-4. [**Software Containers**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_4_containers/slides/): Docker and containerising an analysis
-5. [**Sharing & Publishing**](https://crsuzh.pages.uzh.ch/operra-reproducibility/module_5_sharing_publishing/slides/): Archiving, licensing and publishing reproducible work
+0. [**Introduction**](https://a1eksb.github.io/operra-reproducibility/module_0_introduction/slides/): What computational reproducibility is and why it matters
+1. [**Version Control**](https://a1eksb.github.io/operra-reproducibility/module_1_version_control/slides/): Git and version control
+2. [**Dynamic Reporting**](https://a1eksb.github.io/operra-reproducibility/module_2_dynamic_reporting/slides/): Writing reports where code and prose live together
+3. [**Workflow Management**](https://a1eksb.github.io/operra-reproducibility/module_3_workflow_management/slides/): Chaining analysis steps into a reproducible pipeline
+4. [**Software Containers**](https://a1eksb.github.io/operra-reproducibility/module_4_containers/slides/): Docker and containerising an analysis
+5. [**Sharing & Publishing**](https://a1eksb.github.io/operra-reproducibility/module_5_sharing_publishing/slides/): Archiving, licensing and publishing reproducible work
 
 Each module pairs a short presentation with a hands-on exercise. Start with the
-[Instructions](https://crsuzh.pages.uzh.ch/operra-reproducibility/instructions/)
+[Instructions](https://a1eksb.github.io/operra-reproducibility/instructions/)
 page to set up your environment before the workshop begins.
 
 ## Getting Started
@@ -115,12 +115,19 @@ Open RStudio Server at [http://localhost:8787](http://localhost:8787) (no login 
 ## Rendering the site
 
 Pushing to `main` renders `contents/` with Quarto and publishes the result to GitHub
-Pages. If you forked this repository, that happens in your fork too, and your copy of the
-site appears under your own `github.io` domain.
+Pages. Forks require some setup before their first deployment:
+
+1. Open the fork's **Actions** tab and enable workflows.
+2. Under **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push to `main`, or run the *Quarto Website* workflow manually from the **Actions** tab.
+
+The fork's site will appear at
+`https://YOUR-USERNAME.github.io/operra-reproducibility/` after the deployment completes.
 
 The render runs inside the prebuilt workshop image
 `ghcr.io/a1eksb/operra-reproducibility:rstudio`, which is public, so a fork builds nothing
-and its first deploy works straight away. Your `contents/` changes are always picked up:
+for ordinary site changes. Once Actions and Pages are configured, the first deployment
+can use this image directly. Your `contents/` changes are always picked up:
 the image only supplies the environment, while the site is rendered from the checked-out repository.
 
 Changes to [`Dockerfile`](Dockerfile) or [`requirements.txt`](requirements.txt) are the one exception, since those define the image rather than the content. To render against your own build, push a change to either file so the *RStudio (pyverse) Image* workflow publishes an image under your account, then point the `image:` line in
