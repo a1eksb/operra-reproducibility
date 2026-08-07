@@ -44,7 +44,7 @@ page to set up your environment before the workshop begins.
 
 - Create a new codespace.
   1. Code (green button) > Codespaces
-  3. Create codespace (this may take several minutes)
+  2. Create codespace (this may take several minutes)
 
     ![Creating a codespace: open Code → Codespaces → Codespace repository configuration, set Dev container configuration to "Operra - RStudio (project-wide)", then Create codespace](contents/assets/creating-codespaces.gif)
 

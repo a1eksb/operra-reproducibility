@@ -14,7 +14,7 @@ engine: jupyter
 bibliography: references.bib
 ---
 
-This hands-on requires Python and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a Github codespace.
+This hands-on requires Python and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a GitHub codespace.
 
 # Create a new Quarto file
 

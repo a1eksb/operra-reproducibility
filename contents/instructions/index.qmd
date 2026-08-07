@@ -7,27 +7,27 @@ date: today
 
 Make sure your computer meets the requirements of at least one of the following options prior to the workshop. Option 1 is the simplest and our recommended setup.
 
-## Option 1: Github Codespaces
+## Option 1: GitHub Codespaces
 
 Requirements:
 
-- A personal [Github](https://github.com) account
+- A personal [GitHub](https://github.com) account
 
-With this option, you will work in a Github codespace. Open the whole project in RStudio Server in a GitHub Codespace:
+With this option, you will work in a GitHub codespace. Open the whole project in RStudio Server in a GitHub Codespace:
 
 - **Fork** this repository to your account: <https://github.com/a1eksb/operra-reproducibility>
 
-    - **Hint for convenience** during the workshop: Go to your Github account picture in the top right -> Settings -> Codespaces -> Default idle time, and change it there to a longer period (240min).
+    - **Hint for convenience** during the workshop: Go to your GitHub account picture in the top right -> Settings -> Codespaces -> Default idle time, and change it there to a longer period (240min).
 
 - Create a new codespace: <https://github.com/codespaces/new>
 
 - Select the forked repository
 - Select `Dev container configuration` as "Operra - RStudio (project-wide)"
 - Create codespace (this may take several minutes)
-- Navigate to `Ports`and open the provided URL in a new tab
+- Navigate to `Ports` and open the provided URL in a new tab
 
 ::: {.callout-note} 
-- Note that codespace usage is free up to 120 hours per month (at the time of writing). More in the [Github Docs here](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces).
+- GitHub Free personal accounts include 120 core-hours of Codespaces compute per month (at the time of writing). This repository uses the "Operra - RStudio (project-wide)" dev container and does not require a minimum machine size, so GitHub normally selects its smallest available option: a two-core machine. It consumes two core-hours per wall-clock hour, giving up to 60 active hours from the monthly allowance. See the [GitHub documentation](https://docs.github.com/en/billing/reference/product-usage-included).
 - For students, the [GitHub Student Developer Pack](https://education.github.com/pack) provides additional free codespace usage (besides many other benefits).
 :::
 
@@ -45,7 +45,10 @@ Further instructions are provided here: <https://github.com/a1eksb/operra-reprod
 Requirements:
 
 - [Git](https://git-scm.com/install/) installed
-- [Docker](https://docs.docker.com/get-docker/) installed
+- [R](https://cran.r-project.org/) installed, including the `dplyr`, `ggplot2`, and `kableExtra` packages
+- [Python 3](https://www.python.org/downloads/) installed, including the packages in `requirements.txt`
+- [Java 21](https://adoptium.net/) installed if you use Nextflow
+- [Graphviz](https://graphviz.org/download/) installed
 - [RStudio](https://posit.co/download/rstudio-desktop) or [Visual Studio Code](https://code.visualstudio.com/) installed
 - [Quarto](https://quarto.org/) installed
 - A [make utility](https://www.gnu.org/software/make/) and [snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) or [nextflow](https://docs.seqera.io/nextflow/install) installed 
