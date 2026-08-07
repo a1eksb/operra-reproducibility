@@ -14,7 +14,7 @@ include-in-header:
         color: #29487d;
       }
       </style>
-format: 
+format:
   revealjs:
     menu: true
     pdf: true
@@ -239,7 +239,7 @@ Do not despair! With every step...
 3.  **Sharing and publishing** -- How to share it with others?
 
 ::: fragment
-Website with all materials: <https://crsuzh.pages.uzh.ch/operra-reproducibility/>
+Website with all materials: <https://a1eksb.github.io/operra-reproducibility/>
 :::
 
 ------------------------------------------------------------------------

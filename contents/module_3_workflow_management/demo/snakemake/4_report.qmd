@@ -28,6 +28,37 @@ The report is rendered from `demo/snakemake/`, so these paths are available:
 | `work/3_top_names.csv` | `3_prepare_plots.py` | top names by sex for 2021–2025, including cutoff ties |
 | `work/3_selected_names.csv` | `3_prepare_plots.py` | yearly births for Peter and Daniel |
 
+## Read the Snakemake outputs
+
+Replace the download and transformation chunks in your Module 2 report with
+one of these language-specific examples. `datclean` and `summaries` preserve
+the Module 2 names; `top10` and `subset` replace the transformations previously
+performed inside the two plotting chunks.
+
+For an R report:
+
+```r
+datclean <- read.csv("work/1_names_clean.csv")
+summaries <- read.csv("work/2_yearly_winners.csv")
+top10 <- read.csv("work/3_top_names.csv")
+subset <- read.csv("work/3_selected_names.csv")
+```
+
+For a Python report:
+
+```python
+import pandas as pd
+
+datclean = pd.read_csv("work/1_names_clean.csv")
+summaries = pd.read_csv("work/2_yearly_winners.csv")
+top10 = pd.read_csv("work/3_top_names.csv")
+subset = pd.read_csv("work/3_selected_names.csv")
+```
+
+Use `summaries` for the table, `top10` for the top-names plot, and `subset`
+for the names-over-time plot. These files have already been transformed by the
+workflow, so do not repeat those transformations in the report.
+
 At minimum, adapt your report to:
 
 - replace the Module 2 download and transformation code with reads of the

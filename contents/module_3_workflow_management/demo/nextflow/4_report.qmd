@@ -29,6 +29,38 @@ these relative paths are available while the report renders:
 | `3_top_names.csv` | `3_prepare_plots.py` | top names by sex for 2021–2025, including cutoff ties |
 | `3_selected_names.csv` | `3_prepare_plots.py` | yearly births for Peter and Daniel |
 
+## Read the Nextflow inputs
+
+Replace the download and transformation chunks in your Module 2 report with
+one of these language-specific examples. `datclean` and `summaries` preserve
+the Module 2 names; `top10` and `subset` replace the transformations previously
+performed inside the two plotting chunks.
+
+For an R report:
+
+```r
+datclean <- read.csv("1_names_clean.csv")
+summaries <- read.csv("2_yearly_winners.csv")
+top10 <- read.csv("3_top_names.csv")
+subset <- read.csv("3_selected_names.csv")
+```
+
+For a Python report:
+
+```python
+import pandas as pd
+
+datclean = pd.read_csv("1_names_clean.csv")
+summaries = pd.read_csv("2_yearly_winners.csv")
+top10 = pd.read_csv("3_top_names.csv")
+subset = pd.read_csv("3_selected_names.csv")
+```
+
+Use `summaries` for the table, `top10` for the top-names plot, and `subset`
+for the names-over-time plot. Nextflow stages these transformed files beside
+the report while it renders, so do not prefix the paths with `results/` and do
+not repeat the transformations in the report.
+
 At minimum, adapt your report to:
 
 - replace the Module 2 download and transformation code with reads of the

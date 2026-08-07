@@ -15,7 +15,7 @@ include-in-header:
         color: #29487d;
       }
       </style>
-format: 
+format:
   revealjs:
     menu: true
     pdf: true
@@ -39,7 +39,7 @@ A (too) simple definition:
 
 [The **same analysis**]{.fragment} [of the **same data**]{.fragment} [produces the **same results**]{.fragment}
 
-\ 
+\
 
 ::: fragment
 ![@Turing2024](img/Turing-reproducible.png){fig-align="center" width="50%"}
@@ -51,7 +51,7 @@ A (too) simple definition:
 ![@samuel2024](img/samuel2024.png){fig-align="center" width="70%"}
 
 ::: incremental
--   Attempted to rerun **22,578 Jupyter notebooks** from 3,467 PubMed publications 
+-   Attempted to rerun **22,578 Jupyter notebooks** from 3,467 PubMed publications
 -   For 10,388 of these, all declared dependencies could be installed successfully
 -   1,203 notebooks ran through without any errors
 -   **879 notebooks (4%)** produced results identical to those reported in the original
@@ -279,7 +279,7 @@ $\rightarrow$ **Reproducibility + Robustness + Replicability necessary for Gener
 
 1.  **Introduction** -- what is computational reproducibility?
 
-2.  **Version control** 
+2.  **Version control**
 
 3.  **Dynamic reporting**
 
@@ -290,7 +290,7 @@ $\rightarrow$ **Reproducibility + Robustness + Replicability necessary for Gener
 3.  **Sharing and publishing** -- How to share it with others?
 
 ::: fragment
-Website with all materials: <https://crsuzh.pages.uzh.ch/operra-reproducibility/>
+Website with all materials: <https://a1eksb.github.io/operra-reproducibility/>
 :::
 
 ------------------------------------------------------------------------
