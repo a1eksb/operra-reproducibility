@@ -9,16 +9,16 @@ execute:
 
 # Exercise
 
-- Open a Github codespace from the forked workshop repository. Visit the [instructions](../../instructions/index.qmd) page to learn how to do this.
+- Open a GitHub codespace from the forked workshop repository. Visit the [instructions](../../instructions/index.qmd) page to learn how to do this.
 
 - Within the codespace, adjust the README file by adding your name, ORCID, or any other information you find relevant. Save the changes.
 
 - **Commit** the changes. Provide a commit message.
-    - You can do so either using the Terminal, or using the built-in Git intergration (visible in the left-hand pane).
+    - You can do so either using the Terminal, or using the built-in Git integration (visible in the left-hand pane).
 
-- **Push** the changes to your remote repository on Github.
+- **Push** the changes to your remote repository on GitHub.
 
-- Verify the changes on Github in the README.
+- Verify the changes on GitHub in the README.
 
 - Optional: further personalize the repository to your liking.
 

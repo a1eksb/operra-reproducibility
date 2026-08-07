@@ -176,7 +176,7 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 -  If applicable, add the DOI of the publication in the description
 -  Create a release lock the version of a repository
 -  Rather than cite the URL, assign a DOI to the release, e.g., Zenodo upload
--  Add a license file to explain reusability ( .g., GPL, MIT. Use a template)
+-  Add a license file to explain reusability (e.g., GPL or MIT; use a template)
 -  Indicate where the source data can be found
 :::
 
@@ -197,7 +197,7 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 
 -   Dynamic reporting + version control + automation + containerization
 
-    -   improve **reproducibility**, **reuseability**, **collaboration**
+    -   improve **reproducibility**, **reusability**, **collaboration**
     -   lends research more **transparency**, **credibility**
 
 . . .
@@ -253,4 +253,3 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 :::::
 
 ------------------------------------------------------------------------
-

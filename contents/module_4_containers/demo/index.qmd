@@ -16,7 +16,7 @@ execute:
 
 ## Optional / advanced
 
-If you work locally on your machine – not in the Github Codespace environment – you can experiment with the Dockerfile: add an R package to the recipe, change the exposed port, or add an entire new service. 
+If you work locally on your machine – not in the GitHub Codespace environment – you can experiment with the Dockerfile: add an R package to the recipe, change the exposed port, or add an entire new service.
 
 
 # Additional Resources

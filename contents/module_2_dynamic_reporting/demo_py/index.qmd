@@ -14,7 +14,7 @@ engine: jupyter
 bibliography: references.bib
 ---
 
-This hands-on requires Python and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a Github codespace.
+This hands-on requires Python and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a GitHub codespace.
 
 # Create a new Quarto file
 
@@ -172,9 +172,9 @@ execute:
 We first compute the most common name by year and sex.
 
 ```{python}
-ix = datclean.groupby(['sex', 'year'])['births'].idxmax()
-summaries = datclean.loc[ix]
-summaries.sort_values('year', ascending=False, inplace=True)
+max_births = datclean.groupby(["sex", "year"])["births"].transform("max")
+summaries = datclean.loc[datclean["births"] == max_births]
+summaries = summaries.sort_values("year", ascending=False)
 summaries_styled = summaries.style.hide(axis="index")
 summaries_styled
 ```
@@ -190,21 +190,23 @@ itables.show(summaries_styled, caption="Most common names of newborns in the cit
 
 ### Plot the data
 
-Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2024.
+Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2025.
 
 ```{python}
 #| label: fig-names
-#| fig-cap: "Most common names of Zurich newborns in 2021-2024."
+#| fig-cap: "Most common names of Zurich newborns in 2021-2025."
 #| message: false
 
+# The upper bound is deliberate: the data set gains a year of records over
+# time, and bounding the window keeps this figure matching its caption.
 top10 = (
-    datclean.loc[datclean["year"] > 2020]
+    datclean.loc[(datclean["year"] >= 2021) & (datclean["year"] <= 2025)]
     .groupby(["sex", "name"], as_index=False)["births"]
     .sum()
     .sort_values(["sex", "births"], ascending=[True, False])
-    .groupby("sex")
-    .head(10)
 )
+birth_rank = top10.groupby("sex")["births"].rank(method="min", ascending=False)
+top10 = top10.loc[birth_rank <= 10]
 
 g = sns.FacetGrid(top10, col="sex", sharex=False, sharey=False, height=5, aspect=0.75)
 g.map_dataframe(sns.barplot, y="name", x="births")
@@ -219,13 +221,13 @@ g.fig.subplots_adjust(top=0.85)
 plt.tight_layout()
 ```
 
-Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2024."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`.
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-names`). We can then refer to [@fig-names] in the text using `[@fig-names]`.
 
 ::: {.callout-note appearance="minimal"}
 **Optional exercises**
 
 -   Change the height and width of your plot
--   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tab` instead of `fig`).
+-   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tbl-` instead of `fig-`).
 :::
 
 ### Plot your name
