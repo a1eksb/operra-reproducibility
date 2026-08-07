@@ -3,369 +3,212 @@ title: "Hands-on: Workflow Management"
 format:
   html:
     toc-depth: 4
-# The solution blocks below contain ```{r} / ```{python} fences; force the
-# plain markdown engine so Quarto does not try to bind knitr or jupyter.
 engine: markdown
 execute:
   eval: false
 ---
 
-# Workflow Demo: One Pipeline, Two Engines
+# One analysis, two workflow engines
 
-In this hands-on you will run the same 3-step analysis pipeline using two different workflow engines **Nextflow** and **Snakemake** and observe how each one manages execution order, caching, and re-runs.
+In Module 2, you created a dynamic report about newborn names in Zurich. In
+this exercise, you will turn that analysis into a reproducible workflow.
 
-The pipeline is identical in both cases:
+Choose **either Snakemake or Nextflow**. You do not need to complete both
+versions. They run the same analysis scripts and create the same datasets; only
+the workflow engine and its file layout differ.
 
+```text
+                    Zurich Open Data URL
+                              |
+                    1_clean.py (pandas)
+                              |
+                    1_names_clean.csv
+                         /          \
+                        /            \
+       2_summarize.R (dplyr)    3_prepare_plots.py (Polars)
+                  |                    |             |
+     2_yearly_winners.csv       3_top_names.csv  3_selected_names.csv
+                  \                    |             /
+                   \                   |            /
+                    4_report.qmd (adapted Module 2 report)
+                                      |
+                                4_report.html
 ```
-example_data.csv
-      │
-      ▼
- 1_derive.py  (Python)  →  1_derived.csv   # mean-centre the values
-                                │
-                                ▼
-                       2_summary.R  (R)  →  2_summary.txt   # summarise the centred values
-                                                  │
-                                │
-                                ▼
-                 3_polars_process.py  (Python/polars)  →  3_processed.csv   # add a polars-derived feature
-                                                  │
-                            ┌─────────────────────┘
-                            ▼
-                      4_report.qmd  (Quarto)  →  4_report.html   # collect outputs into a report
+
+The two analysis branches can run independently after the data have been
+cleaned. The report waits for all three result datasets.
+
+## 1. Choose an engine
+
+The examples are in:
+
+- `demo/snakemake/`
+- `demo/nextflow/`
+
+The remaining instructions use `ENGINE` as a placeholder. Replace it with
+`snakemake` or `nextflow`.
+
+## 2. Bring your Module 2 report into the workflow
+
+Copy the `.qmd` report you wrote in Module 2 into your chosen workflow
+directory and name the copy `4_report.qmd`:
+
+```bash
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/ENGINE
+cp "/path/to/your-module-2-report.qmd" 4_report.qmd
 ```
 
-You do **not** need to understand the Python or R code in detail. The focus is on the workflow layer around them.
+If your report uses a local bibliography, copy it too:
 
-For the workshop, step 3 intentionally introduces an extra dependency (`polars`) that may not be installed by default.
+```bash
+cp "/path/to/references.bib" references.bib
+```
 
----
+Keep the structure and reporting features you already created, including the
+prose, citations, cross-references, inline values, figures, tables, and
+environment information.
 
-## Nextflow
+## 3. Adapt the report to workflow inputs
 
-**Directory:** `demo/nextflow/`
+Remove the code that downloads and transforms the source data. Replace it with
+code that reads the datasets produced by the workflow:
 
-The pipeline is defined in `main.nf`. Each step is a `process` block with explicit `input:` and `output:` declarations. Nextflow runs every process in an isolated subdirectory under `work/` and copies final outputs to `results/` via `publishDir`.
+| Purpose | Snakemake report path | Nextflow report path |
+|---|---|---|
+| Clean names data | `work/1_names_clean.csv` | `1_names_clean.csv` |
+| Winners by year and sex | `work/2_yearly_winners.csv` | `2_yearly_winners.csv` |
+| Top names for 2021--2025 | `work/3_top_names.csv` | `3_top_names.csv` |
+| Peter and Daniel over time | `work/3_selected_names.csv` | `3_selected_names.csv` |
 
-### Running
+For example, use the appropriate path from the table:
 
-#### In GitHub Codespaces
+```r
+names_clean <- read.csv("ENGINE-SPECIFIC-PATH")
+```
+
+```python
+import pandas as pd
+
+names_clean = pd.read_csv("ENGINE-SPECIFIC-PATH")
+```
+
+Adapt the report so that it:
+
+- displays the yearly winners as a table;
+- recreates the top-names plot from `3_top_names.csv`;
+- recreates the Peter-and-Daniel plot from `3_selected_names.csv`;
+- calculates at least one inline value from `1_names_clean.csv`; and
+- still reports the software environment.
+
+The workflow owns data acquisition and processing. The report should only read
+the prepared results, present them, and explain them.
+
+# Snakemake route
+
+## Run the workflow
+
+```bash
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
+snakemake --cores 1
+```
+
+Snakemake stores intermediate datasets in `work/` and the final report in
+`results/4_report.html`.
+
+After the first run, edit `4_report.qmd` and run the same command again.
+Snakemake should rerun only the report rule. Changes earlier in the workflow
+cause the affected downstream rules to rerun.
+
+```bash
+# Rerun one rule and anything that depends on it
+snakemake --cores 1 --forcerun summarize_yearly
+
+# Rerun the complete workflow
+snakemake --cores 1 --forceall
+```
+
+## Inspect the graph and report
+
+```bash
+snakemake --rulegraph | dot -Tsvg > rulegraph.svg
+snakemake --dag | dot -Tsvg > dag.svg
+snakemake --cores 1
+snakemake --report execution-report.html
+```
+
+The rule graph shows the workflow definition. The DAG shows the concrete jobs
+and files for this run.
+
+# Nextflow route
+
+## Run the workflow
 
 ```bash
 cd /home/rstudio/project/contents/module_3_workflow_management/demo/nextflow
 nextflow run main.nf
 ```
 
-#### Locally with Docker
+Nextflow publishes the prepared datasets and `4_report.html` to `results/`.
+It also stores task executions in its hashed `work/` directories.
 
-From the repository root on your host machine:
-
-```bash
-# Start the workshop container (first run only)
-docker compose up -d
-
-# Open a shell inside the container
-docker compose exec pyverse bash
-
-# Enter the demo directory and run the pipeline
-cd /home/rstudio/project/contents/module_3_workflow_management/demo/nextflow
-nextflow run main.nf
-```
-
-Results are written to `results/4_report.html`.
-
-### Re-running after a change
-
-Nextflow caches every task by content hash in `work/`. Pass `-resume` to skip unchanged steps:
+Use `-resume` after the first run so that unchanged tasks are reused:
 
 ```bash
 nextflow run main.nf -resume
 ```
 
-If you edit `2_summary.R`, `R_SUMMARY` re-runs because its script changed; `POLARS_PROCESS` and `FINAL_REPORT` then re-run because their inputs changed. `PY_DERIVE` is served from cache.
+Editing `4_report.qmd` should rerun only `FINAL_REPORT`. Editing
+`2_summarize.R` should rerun that process and the report. Editing `1_clean.py`
+should rerun all downstream processes.
 
-### Visualise the pipeline
-
-Nextflow can emit a DAG and an execution report alongside the run:
+## Inspect the graph and reports
 
 ```bash
-nextflow run main.nf \
+nextflow run main.nf -resume \
   -with-dag flowchart.svg \
-  -with-report report.html \
+  -with-report execution-report.html \
   -with-timeline timeline.html
 ```
 
-- `flowchart.svg` - the workflow DAG (needs Graphviz / `dot`)
-- `report.html` - per-task runtime, memory, and CPU usage
-- `timeline.html` - Gantt-style view of when each task ran
-
-Open the `.html` files in your browser.
-
----
-
-## Snakemake
-
-**Directory:** `demo/snakemake/`
-
-The pipeline is defined in `Snakefile`. Each step is a `rule` block. Snakemake infers execution order by matching `output:` of one rule to `input:` of the next. Intermediate outputs go to `work/`, the final report to `results/`.
-
-### Running
-
-#### In GitHub Codespaces
+You can publish to a different directory when experimenting:
 
 ```bash
-cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
-snakemake --cores 1
+nextflow run main.nf -resume --outdir alternative-results
 ```
 
-#### Locally with Docker
+# Running outside Codespaces
 
-From the repository root on your host machine:
+The repository container includes both workflow engines and their required
+software. From the repository root:
 
 ```bash
-# Start the workshop container (first run only)
 docker compose up -d
-
-# Open a shell inside the container
 docker compose exec pyverse bash
-
-# Enter the demo directory and run the pipeline
-cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
-snakemake --cores 1
 ```
 
-If you run Snakemake from outside `demo/snakemake/`, pass an explicit directory and Snakefile:
+Then change to the selected workflow directory inside the container and run
+the corresponding command above.
 
-```bash
-snakemake \
-  --directory /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake \
-  --snakefile /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake/Snakefile \
-  --cores 1
-```
+# Compare the workflow behaviour
 
-Results are written to `results/4_report.html`.
-
-### Re-running after a change
-
-Snakemake tracks file modification timestamps. Just re-run — it automatically skips steps whose outputs are newer than their inputs:
-
-```bash
-snakemake --cores 1
-```
-
-To force a specific rule to re-run regardless of timestamps:
-
-```bash
-snakemake --cores 1 --forcerun r_summary
-```
-
-### Visualise the pipeline
-
-Snakemake can emit the dependency graph as Graphviz `dot` format and an HTML execution report after a run:
-
-```bash
-# Rule-level DAG (one node per rule)
-snakemake --rulegraph | dot -Tsvg > rulegraph.svg
-
-# Full job DAG (one node per executed job, useful when wildcards fan out)
-snakemake --dag | dot -Tsvg > dag.svg
-
-# HTML report — run the pipeline first, then ask for the report
-snakemake --cores 1
-snakemake --report report.html
-```
-
-Open `rulegraph.svg`, `dag.svg`, or `report.html` in your browser. The report includes per-rule runtime, the DAG coloured by status, and any outputs annotated with `report()` in the Snakefile.
-
-> Requires Graphviz (`dot`). The workshop image installs it for you.
-
-### Your turn: write the dynamic report
-
-In the Snakemake variant, the final pipeline step is **yours to write**.
-`4_report.qmd` ships as a skeleton with "Your task" callouts. Apply what you
-learned in the dynamic reporting hands-on ([R version](../../module_2_dynamic_reporting/demo_R/index.qmd),
-[Python version](../../module_2_dynamic_reporting/demo_py/index.qmd)) to turn it
-into a dynamic report that consumes the pipeline outputs:
-
-1. **Setup**: load the libraries of your language of choice.
-2. **Derived data**: read `work/1_derived.csv` and display it as a table with a caption.
-3. **Summary statistics**: read `work/2_summary.txt` with code and print it.
-4. **Processed data**: read `work/3_processed.csv` and plot `value_centered_z` over `year`, with a figure label and caption you can cross-reference.
-5. **Bonus**: report a computed value (e.g., the number of rows) as inline code.
-
-The workflow loop is the point of the exercise: after each edit to
-`4_report.qmd`, re-run
-
-```bash
-snakemake --cores 1
-```
-
-and open `results/4_report.html`. Snakemake notices that only the report file
-changed and re-runs just the `final_report` rule. The analysis steps are
-skipped. If a code chunk errors, `quarto render` fails and Snakemake reports
-the `final_report` rule as failed.
-
-For contrast, the Nextflow variant ships a finished *static* report that embeds
-the output files with `{{{< include >}}}` shortcodes and executes no code. Your
-Snakemake report is *dynamic*: tables, figures, and inline numbers are computed
-from the pipeline outputs at render time, so they can never go stale.
-
-::: {.callout-tip collapse="true"}
-#### Hint: which functions to reach for
-
-| Task | R | Python |
-|------|---|--------|
-| Read a CSV | `read.csv()` | `pd.read_csv()` |
-| Show a table | `kable()` from `kableExtra` | `itables.show()` |
-| Read/print a text file | `readLines()` + `cat()` | `Path(...).read_text()` + `print()` |
-| Plot | `ggplot()` + `geom_col()` | `sns.barplot()` |
-| Inline code | `` `{{r}} nrow(df)` `` | `` `{{python}} len(df)` `` |
-
-The project-wide workshop container used by GitHub Codespaces and the root
-Docker Compose setup includes all required R and Python packages, you still
-need to load or import them in your setup chunk. Remember the chunk options
-`#| label: fig-...` and `#| fig-cap:` for the figure, and that paths are
-relative to the `demo/snakemake/` directory where the report is rendered.
-:::
-
-::: {.callout-tip collapse="true"}
-#### Solution (R)
-
-Replace the contents of `4_report.qmd` with:
-
-````` markdown
----
-title: "Module 3 Demo: Final Report"
-format:
-  html:
-    toc: true
-    embed-resources: true
-execute:
-  warning: false
----
-
-This report is rendered as the final step of the Snakemake pipeline and reads
-the artifacts produced by the earlier steps.
-
-## Setup
-
-```{r}
-#| output: false
-library("dplyr")      # data wrangling
-library("ggplot2")    # plotting
-library("kableExtra") # tables
-```
-
-## Derived data
-
-```{r}
-derived <- read.csv("work/1_derived.csv")
-derived |>
-  kable(caption = "Derived data: values centred by the Python step.")
-```
-
-## Summary statistics
-
-```{r}
-cat(readLines("work/2_summary.txt"), sep = "\n")
-```
-
-## Processed data
-
-```{r}
-#| label: fig-zscores
-#| fig-cap: "Z-scores of the centred values by year."
-#| fig-height: 4
-processed <- read.csv("work/3_processed.csv")
-processed |>
-  ggplot(aes(x = factor(year), y = value_centered_z)) +
-  geom_col() +
-  labs(x = "Year", y = "Z-score") +
-  theme_minimal()
-```
-
-@fig-zscores shows how far each year deviates from the mean.
-
-## Bonus: inline statistics
-
-The processed dataset contains `{r} nrow(processed)` rows covering the years
-`{r} min(processed$year)` to `{r} max(processed$year)`.
-`````
-:::
-
-::: {.callout-tip collapse="true"}
-#### Solution (Python)
-
-Replace the contents of `4_report.qmd` with:
-
-````` markdown
----
-title: "Module 3 Demo: Final Report"
-format:
-  html:
-    toc: true
-    embed-resources: true
-execute:
-  warning: false
----
-
-This report is rendered as the final step of the Snakemake pipeline and reads
-the artifacts produced by the earlier steps.
-
-## Setup
-
-```{python}
-#| output: false
-import pandas as pd              # data wrangling
-import itables                   # nicer tables
-import matplotlib.pyplot as plt  # plotting
-import seaborn as sns            # nicer plots
-from pathlib import Path
-
-sns.set()  # activate seaborn defaults
-```
-
-## Derived data
-
-```{python}
-derived = pd.read_csv("work/1_derived.csv")
-itables.show(derived, caption="Derived data: values centred by the Python step.")
-```
-
-## Summary statistics
-
-```{python}
-print(Path("work/2_summary.txt").read_text())
-```
-
-## Processed data
-
-```{python}
-#| label: fig-zscores
-#| fig-cap: "Z-scores of the centred values by year."
-processed = pd.read_csv("work/3_processed.csv")
-ax = sns.barplot(processed, x="year", y="value_centered_z")
-ax.set(xlabel="Year", ylabel="Z-score")
-plt.tight_layout()
-```
-
-@fig-zscores shows how far each year deviates from the mean.
-
-## Bonus: inline statistics
-
-The processed dataset contains `{python} len(processed)` rows covering the years
-`{python} int(processed["year"].min())` to `{python} int(processed["year"].max())`.
-`````
-:::
-
----
-
-## Key differences
-
-| | Nextflow | Snakemake |
+| Question | Snakemake | Nextflow |
 |---|---|---|
-| Pipeline file | `main.nf` | `Snakefile` |
-| Step isolation | Each task runs in its own `work/<hash>/` subdirectory | Steps run in the project directory |
-| Intermediate outputs | Staged in `work/`, copied to `results/` via `publishDir` | Written directly to `work/` |
-| Cache mechanism | Content hashes (task inputs + code) | File modification timestamps |
-| Re-run only changed steps | `nextflow run main.nf -resume` | `snakemake --cores 1` (automatic) |
-| Force re-run one step | Not directly — delete its `work/` entry or use `-resume` after touching the script | `--forcerun <rule_name>` |
+| Where do tasks run? | In the project directory | In isolated hashed `work/` directories |
+| How are results exposed? | Rules write explicit paths | `publishDir` copies selected outputs |
+| How is work reused? | File dependencies and timestamps | Cached task inputs, code, and execution metadata with `-resume` |
+| Where is the final report? | `results/4_report.html` | `results/4_report.html` |
+
+Whichever engine you chose, identify:
+
+1. which step downloads and cleans the data;
+2. which two steps can run in parallel;
+3. which edits cause only the report to rerun; and
+4. which edit invalidates the entire workflow.
+
+# Troubleshooting
+
+- Run commands from the selected engine directory.
+- In the Nextflow report, use the staged filenames without a `results/` prefix.
+- In the Snakemake report, use the paths under `work/`.
+- Keep `references.bib` beside `4_report.qmd` if the report uses it.
+- Open `results/4_report.html`, not a previously rendered Module 2 file.

@@ -14,12 +14,18 @@ params.outdir = (params.outdir ?: 'results')
 params.data_url = (params.data_url ?: 'https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv')
 
 workflow {
+  def report_files = [file('4_report.qmd')]
+  def bibliography = file('references.bib')
+  if (bibliography.toFile().exists()) {
+    report_files << bibliography
+  }
+
   def clean = CLEAN_NAMES( params.data_url, file('1_clean.py') )
   def winners = SUMMARIZE_YEARLY( clean, file('2_summarize.R') )
   def plot_data = PREPARE_PLOTS( clean, file('3_prepare_plots.py') )
 
   FINAL_REPORT(
-    file('4_report.qmd'),
+    report_files,
     clean,
     winners,
     plot_data
@@ -81,7 +87,7 @@ process FINAL_REPORT {
   publishDir "${params.outdir}", mode: 'copy'
 
   input:
-  path "4_report.qmd"
+  path report_files
   path "1_names_clean.csv"
   path "2_yearly_winners.csv"
   tuple path("3_top_names.csv"), path("3_selected_names.csv")
@@ -96,6 +102,9 @@ process FINAL_REPORT {
   tmpdir=\$(mktemp -d)
   cp 4_report.qmd 1_names_clean.csv 2_yearly_winners.csv \
     3_top_names.csv 3_selected_names.csv "\$tmpdir/"
+  if [ -f references.bib ]; then
+    cp references.bib "\$tmpdir/"
+  fi
   cd "\$tmpdir"
   quarto render 4_report.qmd --to html --output 4_report.html
   cp 4_report.html "\$workdir/"
