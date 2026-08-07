@@ -216,13 +216,13 @@ datclean |>
   theme_minimal()
 ```
 
-Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`. Two other important options are `fig-height` and `fig-width` which allow us to specify the height and width of our figures. Here we have specified `fig-height: 5` which sets the height of the plot to 5 inches.
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-names`). We can then refer to [@fig-names] in the text using `[@fig-names]`. Two other important options are `fig-height` and `fig-width` which allow us to specify the height and width of our figures. Here we have specified `fig-height: 5` which sets the height of the plot to 5 inches.
 
 ::: {.callout-note appearance="minimal"}
 **Optional exercises**
 
 -   Change the height and width of your plot
--   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tab` instead of `fig`).
+-   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tbl-` instead of `fig-`).
 :::
 
 ### Plot your name

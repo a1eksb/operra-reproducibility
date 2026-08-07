@@ -221,13 +221,13 @@ g.fig.subplots_adjust(top=0.85)
 plt.tight_layout()
 ```
 
-Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`.
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-names`). We can then refer to [@fig-names] in the text using `[@fig-names]`.
 
 ::: {.callout-note appearance="minimal"}
 **Optional exercises**
 
 -   Change the height and width of your plot
--   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tab` instead of `fig`).
+-   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tbl-` instead of `fig-`).
 :::
 
 ### Plot your name
