@@ -1,45 +1,50 @@
 ---
-title: "Module 3 Demo: Final Report"
+title: "Module 3: Nextflow Workflow Report"
 format:
   html:
     toc: true
     embed-resources: true
 execute:
-  eval: false
+  warning: false
 ---
 
-This report is rendered **after** the workflow completes.
-It does not execute any analysis code — it simply collects the artifacts
-produced by the earlier pipeline steps.
+# Adapt your Module 2 report
 
-## Raw Input Data (`example_data.csv`)
+This file is the destination for the report you created in Module 2. Do not
+write a second report from scratch. Instead:
 
-```text
+1. Copy your Module 2 `.qmd` file over this file, keeping the name
+   `4_report.qmd`.
+2. Copy any local files it needs, such as `references.bib`, into this directory.
+3. Keep the report structure and dynamic-reporting features you already wrote.
+4. Adapt its code chunks to read and present the Nextflow workflow outputs.
 
-{{< include example_data.csv >}}
+Nextflow stages the report and its inputs together for the final process, so
+these relative paths are available while the report renders:
 
+| Path | Produced by | Contents |
+|---|---|---|
+| `1_names_clean.csv` | `1_clean.py` | Zurich names data with English column names |
+| `2_yearly_winners.csv` | `2_summarize.R` | most common names by year and sex, including ties |
+| `3_top_names.csv` | `3_prepare_plots.py` | top names by sex for 2021–2025, including cutoff ties |
+| `3_selected_names.csv` | `3_prepare_plots.py` | yearly births for Peter and Daniel |
+
+At minimum, adapt your report to:
+
+- replace the Module 2 download and transformation code with reads of the
+  workflow-generated CSV files;
+- display `2_yearly_winners.csv` as the captioned table;
+- recreate the top-names and names-over-time plots from the prepared inputs,
+  retaining their figure labels and cross-references;
+- include a value computed with inline code; and
+- report the R or Python environment used to render it.
+
+After each edit, run:
+
+```bash
+nextflow run main.nf -resume
 ```
 
-## Derived Data from Python (`1_derived.csv`)
-
-```csv
-
-{{< include 1_derived.csv >}}
-
-```
-
-## Summary Statistics from R (`2_summary.txt`)
-
-```text
-
-{{< include 2_summary.txt >}}
-
-```
-
-## Polars-Processed Data (`3_processed.csv`)
-
-```csv
-
-{{< include 3_processed.csv >}}
-
-```
+Then open `results/4_report.html`. With `-resume`, Nextflow re-runs the report
+process when this file changes and restores unchanged upstream tasks from its
+cache.

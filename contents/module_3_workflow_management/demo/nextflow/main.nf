@@ -1,77 +1,79 @@
 #!/usr/bin/env nextflow
 
 /*
- * Minimal workshop demo pipeline:
- * 1. Python centres the values in example_data.csv  → 1_derived.csv
- * 2. R reads 1_derived.csv and produces summary stats → 2_summary.txt
- * 3. Python (polars) processes 1_derived.csv           → 3_processed.csv
- * 4. Quarto collects outputs into an HTML report       → 4_report.html
+ * Zurich newborn-names analysis from Module 2:
+ * 1. Python downloads and cleans the source data    → 1_names_clean.csv
+ * 2. R selects yearly winners, retaining ties       → 2_yearly_winners.csv
+ * 3. Polars prepares both plot datasets             → 3_*.csv
+ * 4. Quarto renders the adapted Module 2 report     → 4_report.html
  *
- * Steps 1 and 2 are sequential: R depends on Python's output.
+ * The summary and plotting processes branch from the same cleaned data.
  */
 
 params.outdir = (params.outdir ?: 'results')
+params.data_url = (params.data_url ?: 'https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv')
 
 workflow {
-  def derived = PY_DERIVE( file('example_data.csv'), file('1_derive.py') )
-  def summary = R_SUMMARY( derived, file('2_summary.R') )
-  def processed = POLARS_PROCESS( derived, summary, file('3_polars_process.py') )
+  def clean = CLEAN_NAMES( params.data_url, file('1_clean.py') )
+  def winners = SUMMARIZE_YEARLY( clean, file('2_summarize.R') )
+  def plot_data = PREPARE_PLOTS( clean, file('3_prepare_plots.py') )
 
   FINAL_REPORT(
     file('4_report.qmd'),
-    file('example_data.csv'),
-    derived,
-    summary,
-    processed
+    clean,
+    winners,
+    plot_data
   )
 }
 
-process PY_DERIVE {
+process CLEAN_NAMES {
   publishDir "${params.outdir}", mode: 'copy'
 
   input:
-  path "example_data.csv"
-  path "1_derive.py"
+  val data_url
+  path "1_clean.py"
 
   output:
-  path "1_derived.csv"
+  path "1_names_clean.csv"
 
   script:
   """
-  python3 1_derive.py --input example_data.csv --output 1_derived.csv
+  python3 1_clean.py --url "${data_url}" --output 1_names_clean.csv
   """
 }
 
-process R_SUMMARY {
+process SUMMARIZE_YEARLY {
   publishDir "${params.outdir}", mode: 'copy'
 
   input:
-  path "1_derived.csv"
-  path "2_summary.R"
+  path "1_names_clean.csv"
+  path "2_summarize.R"
 
   output:
-  path "2_summary.txt"
+  path "2_yearly_winners.csv"
 
   script:
   """
-  Rscript 2_summary.R --input 1_derived.csv --output 2_summary.txt
+  Rscript 2_summarize.R --input 1_names_clean.csv --output 2_yearly_winners.csv
   """
 }
 
-process POLARS_PROCESS {
+process PREPARE_PLOTS {
   publishDir "${params.outdir}", mode: 'copy'
 
   input:
-  path "1_derived.csv"
-  path "2_summary.txt"
-  path "3_polars_process.py"
+  path "1_names_clean.csv"
+  path "3_prepare_plots.py"
 
   output:
-  path "3_processed.csv"
+  tuple path("3_top_names.csv"), path("3_selected_names.csv")
 
   script:
   """
-  python3 3_polars_process.py --input 1_derived.csv --summary 2_summary.txt --output 3_processed.csv
+  python3 3_prepare_plots.py \
+    --input 1_names_clean.csv \
+    --top-names-output 3_top_names.csv \
+    --selected-names-output 3_selected_names.csv
   """
 }
 
@@ -80,21 +82,20 @@ process FINAL_REPORT {
 
   input:
   path "4_report.qmd"
-  path "example_data.csv"
-  path "1_derived.csv"
-  path "2_summary.txt"
-  path "3_processed.csv"
+  path "1_names_clean.csv"
+  path "2_yearly_winners.csv"
+  tuple path("3_top_names.csv"), path("3_selected_names.csv")
 
   output:
   path "4_report.html"
 
   script:
-  // Render in a temp dir outside the repo so Quarto never finds the
-  // parent _quarto.yml website project and outputs to the wrong place.
+  // Render outside the repo so Quarto does not inherit the website project.
   """
   workdir=\$(pwd)
   tmpdir=\$(mktemp -d)
-  cp 4_report.qmd example_data.csv 1_derived.csv 2_summary.txt 3_processed.csv "\$tmpdir/"
+  cp 4_report.qmd 1_names_clean.csv 2_yearly_winners.csv \
+    3_top_names.csv 3_selected_names.csv "\$tmpdir/"
   cd "\$tmpdir"
   quarto render 4_report.qmd --to html --output 4_report.html
   cp 4_report.html "\$workdir/"

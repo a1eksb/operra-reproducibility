@@ -1,8 +1,8 @@
-# Minimal workshop demo pipeline:
-# 1. Python centres the values in example_data.csv  → work/1_derived.csv
-# 2. R reads 1_derived.csv and produces summary stats → work/2_summary.txt
-# 3. Python (polars) processes the derived data       → work/3_processed.csv
-# 4. Quarto renders your report (4_report.qmd)        → results/4_report.html
+# Zurich newborn-names analysis from Module 2:
+# 1. Python downloads and cleans the source data    → work/1_names_clean.csv
+# 2. R selects yearly winners, retaining ties       → work/2_yearly_winners.csv
+# 3. Polars prepares both plot datasets             → work/3_*.csv
+# 4. Quarto renders the adapted Module 2 report     → results/4_report.html
 #
 # Run with:  snakemake --cores 1
 # Run from any directory with:
@@ -11,50 +11,54 @@
 # Absolute path to this Snakefile's directory — keeps all paths stable
 # regardless of where snakemake is invoked from.
 D = workflow.basedir
+DATA_URL = "https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv"
 
 rule all:
     input:
         f"{D}/results/4_report.html"
 
 
-rule py_derive:
+rule clean_names:
     input:
-        data=f"{D}/example_data.csv",
-        script=f"{D}/1_derive.py",
+        script=f"{D}/1_clean.py",
     output:
-        f"{D}/work/1_derived.csv",
+        f"{D}/work/1_names_clean.csv",
+    params:
+        url=DATA_URL,
     shell:
-        "python3 {input.script} --input {input.data} --output {output}"
+        "python3 {input.script:q} --url {params.url:q} --output {output:q}"
 
 
-rule r_summary:
+rule summarize_yearly:
     input:
-        data=f"{D}/work/1_derived.csv",
-        script=f"{D}/2_summary.R",
+        data=f"{D}/work/1_names_clean.csv",
+        script=f"{D}/2_summarize.R",
     output:
-        f"{D}/work/2_summary.txt",
+        f"{D}/work/2_yearly_winners.csv",
     shell:
-        "Rscript {input.script} --input {input.data} --output {output}"
+        "Rscript {input.script:q} --input {input.data:q} --output {output:q}"
 
 
-rule polars_process:
+rule prepare_plots:
     input:
-        data=f"{D}/work/1_derived.csv",
-        summary=f"{D}/work/2_summary.txt",
-        script=f"{D}/3_polars_process.py",
+        data=f"{D}/work/1_names_clean.csv",
+        script=f"{D}/3_prepare_plots.py",
     output:
-        f"{D}/work/3_processed.csv",
+        top_names=f"{D}/work/3_top_names.csv",
+        selected_names=f"{D}/work/3_selected_names.csv",
     shell:
-        "python3 {input.script} --input {input.data} --summary {input.summary} --output {output}"
+        "python3 {input.script:q} --input {input.data:q} "
+        "--top-names-output {output.top_names:q} "
+        "--selected-names-output {output.selected_names:q}"
 
 
 rule final_report:
     input:
         qmd=f"{D}/4_report.qmd",
-        data=f"{D}/example_data.csv",
-        derived=f"{D}/work/1_derived.csv",
-        summary=f"{D}/work/2_summary.txt",
-        processed=f"{D}/work/3_processed.csv",
+        clean=f"{D}/work/1_names_clean.csv",
+        winners=f"{D}/work/2_yearly_winners.csv",
+        top_names=f"{D}/work/3_top_names.csv",
+        selected_names=f"{D}/work/3_selected_names.csv",
     output:
         f"{D}/results/4_report.html",
     params:

@@ -1,87 +1,48 @@
 ---
-title: "Module 3 Demo: Final Report"
+title: "Module 3: Snakemake Workflow Report"
 format:
   html:
     toc: true
     embed-resources: true
+execute:
+  warning: false
 ---
 
-This report is the **final step of the Snakemake pipeline** — and it is yours to
-write. Apply what you learned in the dynamic reporting module: read the files
-produced by the earlier pipeline steps with code, and turn them into tables,
-figures, and inline statistics.
+# Adapt your Module 2 report
 
-The pipeline has already produced these artifacts for you:
+This file is the destination for the report you created in Module 2. Do not
+write a second report from scratch. Instead:
 
-| File | Produced by | Contents |
-|------|-------------|----------|
-| `work/1_derived.csv` | `1_derive.py` (Python) | columns `year`, `value`, `value_centered` |
-| `work/2_summary.txt` | `2_summary.R` (R) | `key=value` summary lines |
-| `work/3_processed.csv` | `3_polars_process.py` (polars) | adds a `value_centered_z` column |
+1. Copy your Module 2 `.qmd` file over this file, keeping the name
+   `4_report.qmd`.
+2. Copy any local files it needs, such as `references.bib`, into this directory.
+3. Keep the report structure and dynamic-reporting features you already wrote.
+4. Adapt its code chunks to read and present the Snakemake workflow outputs.
 
-Work in whichever language you followed in Module 2 — R and Python are both
-available in the workshop container. After each change, re-run the pipeline and
-open `results/4_report.html`:
+The report is rendered from `demo/snakemake/`, so these paths are available:
+
+| Path | Produced by | Contents |
+|---|---|---|
+| `work/1_names_clean.csv` | `1_clean.py` | Zurich names data with English column names |
+| `work/2_yearly_winners.csv` | `2_summarize.R` | most common names by year and sex, including ties |
+| `work/3_top_names.csv` | `3_prepare_plots.py` | top names by sex for 2021–2025, including cutoff ties |
+| `work/3_selected_names.csv` | `3_prepare_plots.py` | yearly births for Peter and Daniel |
+
+At minimum, adapt your report to:
+
+- replace the Module 2 download and transformation code with reads of the
+  workflow-generated CSV files;
+- display `2_yearly_winners.csv` as the captioned table;
+- recreate the top-names and names-over-time plots from the prepared inputs,
+  retaining their figure labels and cross-references;
+- include a value computed with inline code; and
+- report the R or Python environment used to render it.
+
+After each edit, run:
 
 ```bash
 snakemake --cores 1
 ```
 
-Notice that only the `final_report` rule re-runs. Snakemake sees that nothing
-upstream of this file changed.
-
-## Setup
-
-::: {.callout-note appearance="minimal"}
-**Your task**
-
-Add a code chunk that loads the libraries you need.
-:::
-
-## Derived data
-
-::: {.callout-note appearance="minimal"}
-**Your task**
-
-Read `work/1_derived.csv` in a code chunk and display it as a table with a
-caption.
-:::
-
-## Summary statistics
-
-::: {.callout-note appearance="minimal"}
-**Your task**
-
-Read `work/2_summary.txt` in a code chunk and print its lines. Reading it with code keeps the report
-*dynamic*: whenever the pipeline re-runs, the report picks up the new numbers
-automatically. A static alternative would be the
-`{{{< include work/2_summary.txt >}}}` shortcode. The Nextflow variant of this
-demo does exactly that. But then nothing is computed at render time.
-:::
-
-## Processed data
-
-::: {.callout-note appearance="minimal"}
-**Your task**
-
-Read `work/3_processed.csv` and plot `value_centered_z` over `year`. Give the
-chunk a label and a caption with `#| label: fig-zscores` and `#| fig-cap:`,
-then refer to the figure in your text with `@fig-zscores`.
-:::
-
-## Bonus: inline statistics
-
-::: {.callout-note appearance="minimal"}
-**Your task**
-
-Report a computed value inside a sentence using inline code, so the number can
-never go stale. For example:
-
-``` markdown
-The processed dataset contains `{{r}} nrow(processed)` rows.
-```
-
-``` markdown
-The processed dataset contains `{{python}} len(processed)` rows.
-```
-:::
+Then open `results/4_report.html`. When only this file changes, Snakemake
+re-runs the report rule while leaving the upstream analysis outputs untouched.
