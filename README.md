@@ -48,7 +48,7 @@ page to set up your environment before the workshop begins.
 
     ![Creating a codespace: open Code → Codespaces → Codespace repository configuration, set Dev container configuration to "Operra - RStudio (project-wide)", then Create codespace](contents/assets/creating-codespaces.gif)
 
-- You will be notified in the bottom right corner that this workspaces has tasks defined that can launch processes automatically. Please click allow, this will automatically open the R studio instance in a new tab.
+- You will be notified in the bottom-right corner that this workspace has tasks defined that can launch processes automatically. Click **Allow** to open the RStudio instance in a new tab.
 - Alternatively navigate to `Ports` and open the provided URL in a new tab
 
 - When you are finished, stop or delete the codespace so it does not keep consuming your free monthly quota.

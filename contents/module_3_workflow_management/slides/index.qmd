@@ -56,7 +56,7 @@ nocite: |
 ## Automation with Make
 
 -   Tool for managing **computational recipes**
--   Around since the 1976s
+-   Around since 1976
 -   Originally designed for software compilation
 -   **Automating multiple steps** into one
 

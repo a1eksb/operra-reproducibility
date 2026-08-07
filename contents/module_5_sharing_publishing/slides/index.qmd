@@ -80,7 +80,7 @@ This repository ships such a workflow, in `.github/workflows/pages.yml`. It rend
 
 ## Persistent identification
 
-A persistent identifier (e.g., DOI) enable our reports to be `reused` and `found` in time.
+A persistent identifier (e.g., DOI) enables our reports to be `reused` and `found` over time.
 
 Required to make our resources `citable`
 
