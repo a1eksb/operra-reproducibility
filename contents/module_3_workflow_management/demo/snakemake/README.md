@@ -85,7 +85,7 @@ For example, if you edit `2_summary.R`:
 ```
  py_derive    — skipped  (outputs are up to date)
  r_summary    — re-runs  (you changed this script)
- polars_process — re-runs  (depends on 1_derived.csv)
+ polars_process — re-runs  (depends on the changed 2_summary.txt)
  final_report   — re-runs  (depends on downstream outputs)
 ```
 

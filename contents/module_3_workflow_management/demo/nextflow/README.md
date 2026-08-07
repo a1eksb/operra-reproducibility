@@ -76,7 +76,7 @@ For example, if you edit `2_summary.R`:
 ```
  1_derive.py  ✔ cached   (no re-run)
  2_summary.R  ↻ re-runs  (you changed this)
- 3_polars_process.py ↻ re-runs  (depends on 1_derived.csv)
+ 3_polars_process.py ↻ re-runs  (depends on the changed 2_summary.txt)
  4_report.qmd ↻ re-runs  (depends on downstream outputs)
 ```
 

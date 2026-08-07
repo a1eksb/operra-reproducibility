@@ -81,7 +81,7 @@ Nextflow caches every task by content hash in `work/`. Pass `-resume` to skip un
 nextflow run main.nf -resume
 ```
 
-If you edit `2_summary.R`, only `R_SUMMARY` and `FINAL_REPORT` re-run - `PY_DERIVE` is served from cache.
+If you edit `2_summary.R`, `R_SUMMARY` re-runs because its script changed; `POLARS_PROCESS` and `FINAL_REPORT` then re-run because their inputs changed. `PY_DERIVE` is served from cache.
 
 ### Visualise the pipeline
 
