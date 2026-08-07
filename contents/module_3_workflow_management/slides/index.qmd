@@ -158,25 +158,50 @@ clean:
 
 ------------------------------------------------------------------------
 
+## Hands-on: continue the Module 2 analysis
+
+Choose **Snakemake or Nextflow**, then copy and adapt your Module 2 report.
+
+``` text
+Zurich Open Data URL
+         |
+   clean names
+         |
+1_names_clean.csv
+   |
+   +-- summarize yearly --> 2_yearly_winners.csv --+
+   |                                                   |
+   +-- prepare plots                                   +--> adapted report
+          +-- output 1: 3_top_names.csv ---------------+         |
+          +-- output 2: 3_selected_names.csv ----------+    4_report.html
+```
+
+The plot-preparation step is one task that emits two files. Both workflow
+variants perform the same analysis and differ only in orchestration and paths.
+
+------------------------------------------------------------------------
+
 ## Snakemake
 
 [https://snakemake.readthedocs.io](https://snakemake.readthedocs.io){style="font-size:0.7em"}
 
 ::: incremental
 -   **Python-flavoured syntax**: rules look like Python
--   **Content hashes**: robust to `touch`, `git checkout`, file copies, etc. (only re-run if content changed, not timestamp)
+-   **Dependency-aware reruns**: tracks declared files, parameters, code, and software environments
 -   **Wildcards**: one rule applies to many samples (`samples/{name}.csv` fans out automatically)
 -   Per-rule **conda env or container**: each step pinned to its own environment
--   **Cluster / cloud execution**: built in: SLURM, AWS, Kubernetes (same workflow, different backend)
+-   **Different execution backends** through profiles and executor plugins
 -   Auto-generated **DAG diagrams** and HTML reports
 :::
 
 ::: fragment
 ``` python
-rule report:
-    input:  "work/3_processed.csv"
-    output: "results/4_report.html"
-    shell:  "quarto render 4_report.qmd"
+rule prepare_plots:
+    input: "work/1_names_clean.csv"
+    output:
+        top="work/3_top_names.csv",
+        selected="work/3_selected_names.csv"
+    shell: "python3 3_prepare_plots.py ..."
 ```
 :::
 
@@ -191,26 +216,22 @@ rule report:
 -   **First-class containers**: each process declares its Docker / Singularity image
 -   **`-resume`** uses content hashes to skip steps whose inputs haven't changed
 -   **Cloud-native execution**: AWS Batch, Azure, Google Cloud, Kubernetes
--   **nf-core**: 100+ peer-reviewed, community-maintained pipelines (heavily used in bioinformatics)
+-   **nf-core**: community-maintained Nextflow pipelines and shared practices
 :::
 
 ::: fragment
 ``` groovy
 workflow {
-  derived = PY_DERIVE( file('example_data.csv') )
-  R_SUMMARY( derived )                       // 'derived' wires step 1 → step 2
+  clean = CLEAN_NAMES(params.data_url, file('1_clean.py'))
+  winners = SUMMARIZE_YEARLY(clean)
+  plot_data = PREPARE_PLOTS(clean)
+  FINAL_REPORT(file('4_report.qmd'), clean, winners, plot_data)
 }
 
-process PY_DERIVE {
-  input:  path "example_data.csv"
-  output: path "1_derived.csv"
-  script: "python 1_derive.py example_data.csv 1_derived.csv"
-}
-
-process R_SUMMARY {
-  input:  path "1_derived.csv"
-  output: path "2_summary.txt"
-  script: "Rscript 2_summary.R 1_derived.csv 2_summary.txt"
+process PREPARE_PLOTS {
+  input:  path "1_names_clean.csv"
+  output: tuple path("3_top_names.csv"), path("3_selected_names.csv")
+  script: "python3 3_prepare_plots.py ..."
 }
 ```
 :::

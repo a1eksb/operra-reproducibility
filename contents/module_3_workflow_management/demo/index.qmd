@@ -18,25 +18,23 @@ versions. They run the same analysis scripts and create the same datasets; only
 the workflow engine and its file layout differ.
 
 ```text
-                    Zurich Open Data URL
-                              |
-                    1_clean.py (pandas)
-                              |
-                    1_names_clean.csv
-                         /          \
-                        /            \
-       2_summarize.R (dplyr)    3_prepare_plots.py (Polars)
-                  |                    |             |
-     2_yearly_winners.csv       3_top_names.csv  3_selected_names.csv
-                  \                    |             /
-                   \                   |            /
-                    4_report.qmd (adapted Module 2 report)
-                                      |
-                                4_report.html
+Zurich Open Data URL
+         |
+   1_clean.py (pandas)
+         |
+1_names_clean.csv
+   |
+   +-- 2_summarize.R (dplyr) ------> 2_yearly_winners.csv --+
+   |                                                         |
+   +-- 3_prepare_plots.py (Polars)                            |
+          +-- output 1: 3_top_names.csv ----------------------+--> 4_report.qmd
+          +-- output 2: 3_selected_names.csv -----------------+          |
+                                                                  4_report.html
 ```
 
 The two analysis branches can run independently after the data have been
-cleaned. The report waits for all three result datasets.
+cleaned. `3_prepare_plots.py` is one workflow step that emits two plot-ready
+datasets. The report waits for all three result datasets.
 
 ## 1. Choose an engine
 
