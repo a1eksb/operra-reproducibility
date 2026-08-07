@@ -21,8 +21,13 @@ website:
 
 
         right: |
+           <style>
+           .github-lockup { height: 24px; width: auto; vertical-align: text-bottom; }
+           .quarto-light .github-lockup-white,
+           .quarto-dark .github-lockup-black { display: none; }
+           </style>
            Free under the [CC BY international license 4.0 ](https://creativecommons.org/licenses/by/4.0/). \
-           \ Source code on [![](https://images.ctfassets.net/xz1dnu24egyd/1hnQd13UBU7n5V0RsJcbP3/769692e40a6d528e334b84f079c1f577/gitlab-logo-100.png){fig-alt="Git" width=65px}](https://gitlab.uzh.ch/crsuzh/operra-reproducibility)
+           \ Source code on <a href="https://github.com/a1eksb/operra-reproducibility" aria-label="Source code on GitHub"><img class="github-lockup github-lockup-black" src="/assets/GitHub_Lockup_Black_Clearspace.svg" alt=""><img class="github-lockup github-lockup-white" src="/assets/GitHub_Lockup_White_Clearspace.svg" alt=""></a>
 
 
     favicon: 'assets/CRSnew_Logo.svg'

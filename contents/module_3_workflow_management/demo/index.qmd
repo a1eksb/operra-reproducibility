@@ -48,14 +48,26 @@ The pipeline is defined in `main.nf`. Each step is a `process` block with explic
 
 ### Running
 
+#### In GitHub Codespaces
+
 ```bash
-# Build the image and start the container (first run only)
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/nextflow
+nextflow run main.nf
+```
+
+#### Locally with Docker
+
+From the repository root on your host machine:
+
+```bash
+# Start the workshop container (first run only)
 docker compose up -d
 
 # Open a shell inside the container
-docker compose exec nextflow bash
+docker compose exec pyverse bash
 
-# Run the pipeline
+# Enter the demo directory and run the pipeline
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/nextflow
 nextflow run main.nf
 ```
 
@@ -98,14 +110,26 @@ The pipeline is defined in `Snakefile`. Each step is a `rule` block. Snakemake i
 
 ### Running
 
+#### In GitHub Codespaces
+
 ```bash
-# Build the image and start the container (first run only)
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
+snakemake --cores 1
+```
+
+#### Locally with Docker
+
+From the repository root on your host machine:
+
+```bash
+# Start the workshop container (first run only)
 docker compose up -d
 
 # Open a shell inside the container
-docker compose exec snakemake bash
+docker compose exec pyverse bash
 
-# Run the pipeline
+# Enter the demo directory and run the pipeline
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
 snakemake --cores 1
 ```
 
@@ -113,8 +137,8 @@ If you run Snakemake from outside `demo/snakemake/`, pass an explicit directory 
 
 ```bash
 snakemake \
-  --directory /workspace/contents/module_3_workflow_management/demo/snakemake \
-  --snakefile /workspace/contents/module_3_workflow_management/demo/snakemake/Snakefile \
+  --directory /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake \
+  --snakefile /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake/Snakefile \
   --cores 1
 ```
 

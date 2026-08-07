@@ -42,16 +42,19 @@ cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
 snakemake --cores 1
 ```
 
-### On a host machine
+### On a host machine with Docker
+
+From the repository root on your host machine:
 
 ```bash
-# 1. Build the image and start the container (first run only)
+# 1. Start the workshop container (first run only)
 docker compose up -d
 
 # 2. Open a shell inside the container
-docker compose exec snakemake bash
+docker compose exec pyverse bash
 
-# 3. Run the workflow
+# 3. Enter the demo directory and run the workflow
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
 snakemake --cores 1
 ```
 

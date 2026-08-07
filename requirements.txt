@@ -1,4 +1,4 @@
-# Pins the Python packages installed in the workshop container and GitLab Pages build.
+# Pins the Python packages installed in the workshop container and GitHub Pages build.
 annotated-types==0.7.0
 argparse-dataclass==2.0.0
 asttokens==3.0.0
