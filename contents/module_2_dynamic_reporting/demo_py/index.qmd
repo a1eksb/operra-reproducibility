@@ -190,15 +190,17 @@ itables.show(summaries_styled, caption="Most common names of newborns in the cit
 
 ### Plot the data
 
-Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2024.
+Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2025.
 
 ```{python}
 #| label: fig-names
-#| fig-cap: "Most common names of Zurich newborns in 2021-2024."
+#| fig-cap: "Most common names of Zurich newborns in 2021-2025."
 #| message: false
 
+# The upper bound is deliberate: the data set gains a year of records over
+# time, and bounding the window keeps this figure matching its caption.
 top10 = (
-    datclean.loc[datclean["year"] > 2020]
+    datclean.loc[(datclean["year"] >= 2021) & (datclean["year"] <= 2025)]
     .groupby(["sex", "name"], as_index=False)["births"]
     .sum()
     .sort_values(["sex", "births"], ascending=[True, False])
@@ -219,7 +221,7 @@ g.fig.subplots_adjust(top=0.85)
 plt.tight_layout()
 ```
 
-Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2024."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`.
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`.
 
 ::: {.callout-note appearance="minimal"}
 **Optional exercises**

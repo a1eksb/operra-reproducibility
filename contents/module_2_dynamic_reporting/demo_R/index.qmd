@@ -193,15 +193,17 @@ summaries |>
 
 ### Plot the data
 
-Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2024.
+Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2025.
 
 ```{r}
 #| label: fig-names
-#| fig-cap: "Most common names of Zurich newborns in 2021-2024."
+#| fig-cap: "Most common names of Zurich newborns in 2021-2025."
 #| message: false
 #| fig-height: 5
 datclean |>
-  filter(year > 2020) |>
+  # The upper bound is deliberate: the data set gains a year of records over
+  # time, and bounding the window keeps this figure matching its caption.
+  filter(year >= 2021, year <= 2025) |>
   group_by(sex, name) |>
   summarise(births = sum(births)) |>
   slice_max(order_by = births, n = 10) |>
@@ -214,7 +216,7 @@ datclean |>
   theme_minimal()
 ```
 
-Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2024."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`. Two other important options are `fig-height` and `fig-width` which allow us to specify the height and width of our figures. Here we have specified `fig-height: 5` which sets the height of the plot to 5 inches.
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-label`). We can then refer to [@fig-names] in the text using `[@fig-label]`. Two other important options are `fig-height` and `fig-width` which allow us to specify the height and width of our figures. Here we have specified `fig-height: 5` which sets the height of the plot to 5 inches.
 
 ::: {.callout-note appearance="minimal"}
 **Optional exercises**
