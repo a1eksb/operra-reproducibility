@@ -1,7 +1,7 @@
 ---
 title: "Sharing and Publishing"
 subtitle: "Workflows for dynamically generated reports"
-author: "Fabio Molo"
+author: "Fabio Molo, Peter Degen"
 preview-links: true
 include-in-header:
   - text: |
@@ -46,7 +46,7 @@ These are some frequent use cases:
 ## Git version-controlled repositories
 
 -   [Git](https://git-scm.com/): free and open source distributed version control system
--   Popular platforms: [GitLab](https://gitlab.com/) (open) and [GitHub](https://github.com/) (Microsoft)
+-   Popular platforms: [GitLab](https://gitlab.com/) and [GitHub](https://github.com/)
 -   There are `GitLab instances` at many universities
 -   Meant for code and documents, not as data repositories
 -   Recommended for `all` sharing scenarios
@@ -56,7 +56,6 @@ These are some frequent use cases:
 -   [Quarto websites](https://quarto.org/docs/websites/) can easily assemble HTMLs in a website
 -   [GitLab pages](https://docs.gitlab.com/ee/user/project/pages/) and [GitHub pages](https://docs.github.com/en/pages) can host `static` websites for free
 -   Each site gets a predictable URL, e.g. `https://USER.github.io/REPO/`
--   `GitLab pages` can be private or public; `GitHub pages` are public unless you have a paid plan
 -   HTML interactivity: e.g., `dashboards`, `plotly`, `DataTables`
 -   Example use-cases: sharing results, technical documentation, templates, dissemination, etc.
 
@@ -86,26 +85,21 @@ Required to make our resources `citable`
 
 #### Where can I get a DOI ?
 
--   Data repositories (e.g., Zenodo, OSF, Ebrains...)
+-   Data repositories (e.g., Zenodo, Ebrains...)
 -   Journals and preprint platforms
 
 ------------------------------------------------------------------------
 
-### Popular generalist DOI-enabling repositories
+### Zenodo
 
 ::: fragment
-#### [Zenodo](https://zenodo.org/)
+#### [Zenodo](https://zenodo.org/) is a popular generalist DOI-enabling repositories
 
 -   Free. 50 GB upload limit per dataset (up to 200Gb upon request).
 -   Hosted by CERN. The data stays in Europe.
 :::
 
-::: fragment
-#### [Open Science Framework (OSF)](https://osf.io/)
 
--   Free. Private projects limited to 5 GB and public projects to 50 GB.
--   Default storage location in US, but also servers in Canada, Germany and Australia.
-:::
 
 ------------------------------------------------------------------------
 
@@ -151,15 +145,6 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 ::: {.column .font-small width="50%"}
 <br><br> A citable Zenodo entry with a DOI and the content of the repository release in a .zip file
 :::
-
-------------------------------------------------------------------------
-
-### Preregistration in Open Science Framework (OSF)
-
--   OSF feature to [preregister](https://help.osf.io/article/145-preregistration) your research plan
--   It can be private and released upon project completion
--   OSF [templates](https://help.osf.io/article/229-select-a-registration-template) can help structure your report
--   Enhances visibility, rigor and transparency of your work
 
 ------------------------------------------------------------------------
 
