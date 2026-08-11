@@ -71,7 +71,7 @@ A (too) simple definition:
 :::
 
 ::: fragment
-$\rightarrow$ **Still optimistic estimates: Code from non-sharing authors likely less reproducible!**
+$\rightarrow$ **Still optimistic estimates: code from non-sharing authors is likely less reproducible**
 :::
 
 ::: fragment
@@ -141,7 +141,7 @@ $\rightarrow$ **Reproducibility + Robustness + Replicability necessary for Gener
 :::::: fragment
 ::::: {.columns align="center"}
 ::: {.column width="72%"}
-Reproducible research may feel overwhelming.
+Reproducible research is difficult.
 :::
 
 ::: {.column width="28%"}
@@ -153,7 +153,7 @@ Reproducible research may feel overwhelming.
 ::::::: fragment
 :::::: {.columns align="center"}
 :::: {.column width="60%"}
-Do not despair! With every step...
+Do not despair. With every step...
 
 ::: incremental
 -   you are already **one step ahead**
@@ -171,29 +171,33 @@ Do not despair! With every step...
 
 ------------------------------------------------------------------------
 
-## The Swiss Reproducibility Network Academy
+
+## The SwissRN OPeR-RA workshops
+
+![](img/oper-ra_workshops.png){fig-align="center" height="550"}
+
+------------------------------------------------------------------------
+
+## The Swiss Reproducibility Network
 
 ::::: columns
 ::: {.column width="80%"}
--   **Early career** researchers section of the Swiss RN
+-  SwissRN is a **peer-led consortium** that promotes rigorous research practices in Switzerland
 
--   Goal 1: Connect young researchers interested in **reproducibility in Switzerland**
+-  Organised in **local nodes** at Swiss research institutions
 
--   Goal 2: Improve reproducibility of research in Switzerland
+-  To get started, join the [mailing list](https://ebpi.lists.uzh.ch/sympa/subscribe/swissrn?previous_action=review)
 
--   How to join?
-
-    -   young researchers in **Switzerland** (working language: English)
-    -   **interest** in improving research and reproducibility
-    -   **every field** is welcome (diversity is the key!)
-
--   More information: <https://www.swissrn.org/contents/academy/>
+-  For early-career researchers, consider joining the [SwissRN Academy](https://www.swissrn.org/contents/academy/) 
 :::
 
 ::: {.column width="20%"}
 ![](img/swissrn_logo.png)
+
+![SwissRN mailing list](img/swissrn_mailing_list_qr.png)
 :::
 :::::
+
 
 ------------------------------------------------------------------------
 
