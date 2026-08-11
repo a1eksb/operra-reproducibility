@@ -1,7 +1,7 @@
 ---
 title: "Software Containers"
 subtitle: "Encapsulating computational environments with Docker"
-author: "Samuel Pawel, Peter Degen, Fabio Molo, Gorka Fraga González"
+author: "Fabio Molo"
 date-format: long
 preview-links: true
 include-in-header:

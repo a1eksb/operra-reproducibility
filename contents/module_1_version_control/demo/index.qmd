@@ -9,11 +9,13 @@ execute:
 
 # Exercise
 
-- Open a GitHub codespace from the forked workshop repository. Visit the [instructions](../../instructions/index.qmd) page to learn how to do this.
+We run through the simple Git workflow shown on slide 7:
+
+- Open a GitHub codespace from your forked workshop repository. Visit the [instructions](../../instructions/index.qmd) page to learn how to do this.
 
 - Within the codespace, adjust the README file by adding your name, ORCID, or any other information you find relevant. Save the changes.
 
-- **Commit** the changes. Provide a commit message.
+- **Stage** and **commit** the changes. Provide a commit message.
     - You can do so either using the Terminal, or using the built-in Git integration (visible in the left-hand pane).
 
 - **Push** the changes to your remote repository on GitHub.
@@ -22,11 +24,6 @@ execute:
 
 - Optional: further personalize the repository to your liking.
 
-# Resolving a git conflict
-
-When versions at the same location of a file tracked by git diverge, trying to pull or push will result in a **git conflict**. This has to be resolved manually.
-
 # Additional Resources
 
 -   The Turing Way — Version Control: <https://the-turing-way.netlify.app/reproducible-research/vcs>
--   Happy Git with R: <https://happygitwithr.com>

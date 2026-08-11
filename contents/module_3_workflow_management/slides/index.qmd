@@ -1,7 +1,7 @@
 ---
 title: "Workflow Management"
 subtitle: "Automating multi-step computational pipelines"
-author: "Samuel Pawel, Peter Degen, Fabio Molo, Gorka Fraga González"
+author: "Samuel Pawel, Peter Degen"
 date-format: long
 preview-links: true
 include-in-header:

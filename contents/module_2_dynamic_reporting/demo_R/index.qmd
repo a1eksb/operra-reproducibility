@@ -1,12 +1,6 @@
 ---
 title: "Hands-on: Dynamic Reporting with R"
 author:    
-  - name: "Gorka Fraga González"
-    orcid: 0000-0002-1857-8607
-    
-  - name: "Samuel Pawel"
-    orcid: 0000-0003-2779-320X
-
   - name: "Fabio Molo"
     orcid: 0000-0001-9320-5854
 format:

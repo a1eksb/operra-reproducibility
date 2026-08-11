@@ -5,10 +5,7 @@ subtitle: Automating the generation of manuscripts, reports, and presentations
 date: today
 date-format: long
 author:
-  - Gorka Fraga González
   - Fabio Molo
-  - Peter Degen
-  - Samuel Pawel
 editor: source
 preview-links: true
 include-in-header:
