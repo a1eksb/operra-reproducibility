@@ -50,10 +50,11 @@ A (too) simple definition:
 ![@samuel2024](img/samuel2024.png){fig-align="center" width="70%"}
 
 ::: incremental
--   Attempted to rerun **22,578 Jupyter notebooks** from 3,467 PubMed publications
--   For 10,388 of these, all declared dependencies could be installed successfully
--   1,203 notebooks ran through without any errors
--   **879 notebooks (4%)** produced results identical to those reported in the original
+-   Attempted to rerun [22,578 Python notebooks]{.mark} from 3,467 PubMed publications 
+-   15,817/22,578 = 70%: Declared software dependencies
+-   10,388/15,817 = 66%: Dependencies could be installed
+-   1,203/10,388 = 12%: Ran through without any errors
+-   [879/10,388 = 8%]{.mark}: Produced results identical to those reported in the original
 :::
 
 ------------------------------------------------------------------------
