@@ -1,7 +1,7 @@
 ---
 title: "Version Control with Git"
 subtitle: "Tracking changes, collaborating, and archiving research"
-author: "Samuel Pawel, Peter Degen, Fabio Molo, Gorka Fraga González"
+author: "Fabio Molo"
 date-format: long
 preview-links: true
 include-in-header:

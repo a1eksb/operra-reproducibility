@@ -1,7 +1,7 @@
 ---
 title: "Sharing and Publishing"
 subtitle: "Workflows for dynamically generated reports"
-author: "Gorka Fraga González, Samuel Pawel, Peter Degen, Fabio Molo"
+author: "Fabio Molo"
 preview-links: true
 include-in-header:
   - text: |

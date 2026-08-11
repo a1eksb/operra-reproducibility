@@ -51,3 +51,10 @@ This workshop, organized by the [Swiss Reproducibility Network](https://www.swis
 ---
 
 Visit the [Instructions](instructions/index.qmd) page for software installation and setup.
+
+---
+
+Workshop materials partly based on:
+
+Molo, F., Fraga González, G., Degen, P., Pawel, S. 2025. Reproducible Research Workflows with Quarto and R - Getting Started. Workshop at the University of Geneva. https://doi.org/10.5281/zenodo.18659813
+
