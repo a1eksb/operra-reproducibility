@@ -59,9 +59,9 @@ Solution: **Version control with Git**
 ::: incremental
 
 - Google Docs, MS Sharepoint, etc.
-- Require a master document
+- Requires a master document
 - Often scales poorly (to only a few participants)
-- Availablility of complete history questionable
+- Availablility of complete history is questionable
 - Stored in some company's cloud
 - Works only for specific, often proprietary file types
 
@@ -96,13 +96,11 @@ Solution: **Version control with Git**
 
 -   Can **branch and merge**
 
--   Useful for **collaboration** and **file transfer**
+-   Useful for **collaboration** (**GitHub**/**GitLab**)
 
 -   **Command line** interface (learning curve)
 
 -   **Graphical interface** in many editors/IDEs (e.g., RStudio, VS Code)
-
--   **Git** (software) ≠ **GitHub**/**GitLab** (Git repository hosting services)
 
 -   Snapshots enable **persistently archiving** (with DOI) on data repositories (e.g., Zenodo)
 :::
@@ -122,8 +120,8 @@ Solution: **Version control with Git**
 
 ## Core Git concepts
 
-| Concept | Description |
-|---|---|
+  |   
+|-|---|
 | **Repository** | A directory tracked by Git (`.git/` folder inside) |
 | **Commit** | A snapshot of changes, with a message and timestamp |
 | **Remote** | A version of the repo hosted on a server (GitHub/GitLab) |
@@ -135,14 +133,14 @@ Solution: **Version control with Git**
 
 ------------------------------------------------------------------------
 
-## Common Git operations
+## A simple Git workflow
 
-![[<https://commons.wikimedia.org/wiki/File:Git_operations.svg>]{style="font-size:0.7em"}](img/Git_operations.png){fig-align="center"}
+![[From Pawel, S., Molo, F., Kehl, M. (2026). Good Statistical Practice. <https://biostat.pages.uzh.ch/sta472/gsp.>]{style="font-size:0.7em"}](img/git-workflow.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 
-## Basic Git workflow
+## Basic Git commands
 
 ``` bash
 # Initialise a new repository
