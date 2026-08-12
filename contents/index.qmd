@@ -56,5 +56,5 @@ Visit the [Instructions](instructions/index.qmd) page for software installation 
 
 Workshop materials partly based on:
 
-Molo, F., Fraga González, G., Degen, P., Pawel, S. 2025. Reproducible Research Workflows with Quarto and R - Getting Started. Workshop at the University of Geneva. https://doi.org/10.5281/zenodo.18659813
+Molo, F., Fraga González, G., Degen, P., Pawel, S. 2025. Reproducible Research Workflows with Quarto and R - Getting Started. Workshop at the University of Geneva. <https://doi.org/10.5281/zenodo.18659813>
 
