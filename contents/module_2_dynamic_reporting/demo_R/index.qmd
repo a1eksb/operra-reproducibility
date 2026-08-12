@@ -170,6 +170,7 @@ We first compute the most common name by year and sex.
 
 ```{r}
 summaries <- datclean |>
+  select(year, name, sex, births) |>
   group_by(sex, year) |>
   slice_max(order_by = births, n = 1) |>
   arrange(-year)
