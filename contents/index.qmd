@@ -13,7 +13,9 @@ toc: false
 page-layout: full
 ---
 
-This workshop, organized by the [Swiss Reproducibility Network](https://www.swissrn.org) introduces participants to a full reproducible research workflow.
+This workshop, organized by the [Swiss Reproducibility Network](https://www.swissrn.org), introduces participants to a full reproducible research workflow.
+
+Visit the [Instructions](instructions/index.qmd) page for software installation and setup.
 
 # Modules
 
@@ -47,10 +49,6 @@ This workshop, organized by the [Swiss Reproducibility Network](https://www.swis
 - [Sharing and Publishing](module_5_sharing_publishing/slides/index.qmd)
 - [Hands-on: Sharing and Publishing](module_5_sharing_publishing/demo/index.qmd)
 
-
----
-
-Visit the [Instructions](instructions/index.qmd) page for software installation and setup.
 
 ---
 
