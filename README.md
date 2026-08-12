@@ -196,4 +196,17 @@ operra-reproducibility/
 
 Cite this workshop as:
 
+> Bobic, A., Molo, F., Stekhoven, D. 2026. SwissRN Workshop on Computational Reproducibility. <https://doi.org/10.5281/zenodo.21900425>
+
 A BibTeX entry is given by:
+
+```bibtex
+@misc{Bobic2026,
+  author       = {Aleksandar Bobic and Fabio Molo and Daniel Stekhoven},
+  title        = {SwissRN Workshop on Computational Reproducibility},
+  year         = 2026,
+  doi          = {10.5281/zenodo.21900425},
+  url          = {https://a1eksb.github.io/operra-reproducibility/}
+}
+```
+
