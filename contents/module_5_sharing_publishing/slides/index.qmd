@@ -29,77 +29,96 @@ format:
 bibliography: references.bib
 ---
 
-## Sharing scenarios
+## FAIR sharing
 
-```{=html}
-<style> .font-small {  font-size: 0.8em;} </style>
-```
+![](img/fair-principles.svg){fig-align="center" width=60%}
 
-These are some frequent use cases:
-
-1.  `Preliminary results` (temporary, internal reports)
-2.  `Internal monitoring` (regularly updated reports)
-3.  `Templates or documentation`
-4.  `Dissemination` to broader audiences
-5.  `Publication` (preprint, dataset, article, etc)
-
-## Git version-controlled repositories
-
--   [Git](https://git-scm.com/): free and open source distributed version control system
--   Popular platforms: [GitLab](https://gitlab.com/) and [GitHub](https://github.com/)
--   There are `GitLab instances` at many universities
--   Meant for code and documents, not as data repositories
--   Recommended for `all` sharing scenarios
-
-## Sharing with GitLab or GitHub pages
-
--   [Quarto websites](https://quarto.org/docs/websites/) can easily assemble HTMLs in a website
--   [GitLab pages](https://docs.gitlab.com/ee/user/project/pages/) and [GitHub pages](https://docs.github.com/en/pages) can host `static` websites for free
--   Each site gets a predictable URL, e.g. `https://USER.github.io/REPO/`
--   HTML interactivity: e.g., `dashboards`, `plotly`, `DataTables`
--   Example use-cases: sharing results, technical documentation, templates, dissemination, etc.
+::: aside
+The Turing Way project illustration by Scriberia. Used under a CC-BY 4.0 licence. DOI: [The Turing Way Community & Scriberia (2024)](https://doi.org/10.5281/ZENODO.3332807).
+:::
 
 ------------------------------------------------------------------------
 
-## How GitHub pages publishes your site
+## FAIR: Findable
 
--   Make sure the repository is public (unless you have a paid GitHub plan)
--   Enable it once under `Settings > Pages`, with the source set to `GitHub Actions`
--   A workflow then renders the site and republishes it on `every push` to `main`
--   Your fork gets `its own` site at `its own` URL - nothing to configure
--   The published site is always rebuilt `from source`
+Sometimes a paper links to GitHub for code but you find this:
+
+![](img/404.png)
 
 ::: fragment
-::: font-small
-This repository ships such a workflow, in `.github/workflows/pages.yml`. It renders `contents/` with Quarto **inside the same container image you are working in now**.
-:::
-:::
-
-------------------------------------------------------------------------
-
-## Persistent identification
-
-A persistent identifier (e.g., DOI) enables our reports to be `reused` and `found` over time.
-
-Required to make our resources `citable`
+**Solution:** Persistent identifiers (e.g., DOI) make code `findable` and `citable`.
 
 #### Where can I get a DOI ?
 
 -   Data repositories (e.g., Zenodo, Ebrains...)
 -   Journals and preprint platforms
+:::
 
 ------------------------------------------------------------------------
 
-### Zenodo
+## FAIR: Accessible
 
-::: fragment
-#### [Zenodo](https://zenodo.org/) is a popular generalist DOI-enabling repositories
+- Meaningful access conditions
+- Downloadable via common protocols (https, ftp, ssh)
 
--   Free. 50 GB upload limit per dataset (up to 200Gb upon request).
--   Hosted by CERN. The data stays in Europe.
+------------------------------------------------------------------------
+
+## FAIR: Interoperable
+
+Use standard, non-prorietary file formats
+<br>
+<br>
+<div style="font-size: 1em;">
+| **Category** | **Recommended formats** |
+|------------------------|------------------------------------|
+| README files | Markdown (*MD*) or text (*TXT*) |
+| Tabular data | *CSV* |
+| Structured plain text | *XML*, *JSON* (e.g., metadata companion files) |
+| Images | *PDF*, *JPEG*, *PNG*, *TIFF*, *SVG* |
+| Audio | *FLAC*, *AIFF*, *WAV*, *MP3*, *OGG* |
+| Video | *AVI*, *MPEG*, *MP4* |
+| Compressed file archives | *TAR.GZ*, *7Z*, *ZIP* |
+</div>
+
+------------------------------------------------------------------------
+
+## FAIR: Reusable
+
+::: {.incremental}
+- Provide `data provenance` (history)
+  - e.g. version control with Git
+- Capture software `dependencies`
+  - Software containers
+  - Documentation (e.g. `sessionInfo()` in R)
+- Add a `license`
+  - e.g. MIT (permissive), GNU GPLv3 (copyleft), CC-BY (non-code)
+  - [https://choosealicense.com/](https://choosealicense.com/)
 :::
 
+------------------------------------------------------------------------
 
+## Caution: open science tokenism
+
+![](img/code_shared_as_docx_not_fair.png){fig-align="center" width="75%"}
+
+::: { .fragment .font-small}
+A real example from a real paper: R code dumped in a .docx file and shared in the supplementary materials.
+
+**Exercise:** Find 3 reasons why this fails to be FAIR
+:::
+
+------------------------------------------------------------------------
+
+## The FAIR principles in action
+
+After today's workshop, you have any of the following:
+
+-  A `version-controlled Git repository` published on GitHub
+-  A `dynamic report` conducting an analysis 
+-  An `automated workflow`running the analysis
+-  A `Dockerfile` capturing the software dependencies
+
+We still need **persistent identification**.
 
 ------------------------------------------------------------------------
 
@@ -107,50 +126,28 @@ Required to make our resources `citable`
 
 -   GitLab and GitHub do not offer DOIs
 -   'Persistent URLs'/'Permanent links' not as strongly persistent
--   But we can combine a [GitLab releases](https://docs.gitlab.com/ee/user/project/releases/) with DOI enabling platforms
+-   But we can combine a [GitHub releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases/) with a DOI enabling platform
 -   A `release` in GitLab is a `snapshot` of a repository with
     -   Version tag
     -   Source code and metadata
 
 ------------------------------------------------------------------------
 
-### Workflow example with GitLab and Zenodo {.nostretch}
+## Zenodo
 
-[Robustness check](https://www.nature.com/articles/s41562-024-01818-7) for Nature Human Behaviour
+-  [Zenodo](https://zenodo.org/) is a popular generalist DOI-enabling repository.
+-   Free. 50 GB upload limit per dataset (up to 200Gb upon request).
+-   Hosted by CERN. The data stays in Europe.
 
-##### [GitLab Repository](https://gitlab.uzh.ch/crsuzh/nhb-replication)
 
-::: {.column width="50%"}
-![](img/nhb-example.png){fig-align="left" width="491"}
+::: {.column width="60%"}
+![<https://doi.org/10.5281/zenodo.13587432>](img/zenodo-entry.png){ fig-align="left" .lightbox width="100%"}
 :::
 
-:::: {.column width="45%"}
-::: font-small
-<br> <br>
-
-Each release includes assets (zipped source code) and a .json with the release metadata
-
-The README.md file has a link to the Zenodo entry with a DOI and citation information.
-:::
-::::
-
-------------------------------------------------------------------------
-
-##### [Zenodo entry](https://zenodo.org/records/13748512)
-
-::: {.column width="50%"}
-![](img/zenodo-entry.png){width="500px" fig-align="left"}
+::: {.column .font-small width="40%"}
+A citable Zenodo entry with a DOI and the content of the repository release in a .zip file.
 :::
 
-::: {.column .font-small width="50%"}
-<br><br> A citable Zenodo entry with a DOI and the content of the repository release in a .zip file
-:::
-
-------------------------------------------------------------------------
-
-### Publication workflow
-
-![](img/publication-workflow.png)
 
 ------------------------------------------------------------------------
 
@@ -158,23 +155,13 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 
 ::: incremental
 -  Add description in README (dates, project ID, funding, affiliations, DOI )
--  If applicable, add the DOI of the publication in the description
+-  Provide instructions how to reproduce the analysis
 -  Create a release lock the version of a repository
--  Rather than cite the URL, assign a DOI to the release, e.g., Zenodo upload
--  Add a license file to explain reusability (e.g., GPL or MIT; use a template)
+-  Rather than cite the URL, assign a DOI to the release, e.g. with a Zenodo upload
+-  Add a license file to explain reusability (use a template)
+-  If applicable, add the DOI of the publication in the description
 -  Indicate where the source data can be found
 :::
-
-------------------------------------------------------------------------
-
-## Putting it all together
-
-
-![Modified from @peikert2019](img/workflow-quarto.png){fig-align="center" height="400"}
-
-
-
-
 
 ------------------------------------------------------------------------
 
@@ -187,54 +174,41 @@ The README.md file has a link to the Zenodo entry with a DOI and citation inform
 
 . . .
 
--   There is a **learning curve** 😨, but ...
+-   There is a **learning curve**, but ...
 
-    -   start simple and learn **step-by-step** 💡
+    -   start simple and learn **step-by-step** 
 
-    -   tools are **constantly evolving** 🚀
+    -   **select parts** of the workflow you find intuitive 
 
-    -   invested learning time can **save you time** in the future ⏳
+    -   invested learning time can **save you time** in the future 
 
-    -   skills are **useful in/outside Academia** 💰 👨‍🔬
+    -   skills are **useful in- and outside academia**
 
 ------------------------------------------------------------------------
 
-## The Swiss Reproducibility Network Academy
+
+## The SwissRN OPeR-RA workshops
+
+![](img/oper-ra_workshops.png){fig-align="center" height="550"}
+
+------------------------------------------------------------------------
+
+## The Swiss Reproducibility Network
 
 ::::: columns
 ::: {.column width="80%"}
--   **Early career** researchers section of the SwissRN
+-  SwissRN is a **peer-led consortium** that promotes rigorous research practices in Switzerland
 
--   Goal 1: Connect young researchers interested in **reproducibility in Switzerland**
+-  Organised in **local nodes** at Swiss research institutions
 
--   Goal 2: Improve reproducibility of research in Switzerland
+-  To get started, join the [mailing list](https://ebpi.lists.uzh.ch/sympa/subscribe/swissrn?previous_action=review)
 
--   How to join?
-
-    -   young researchers in **Switzerland** (working language: English)
-    -   **interest** in improving research and reproducibility
-    -   **every field** is welcome (diversity is the key!)
-
--   More information: <https://www.swissrn.org/contents/academy/>
+-  For early-career researchers, consider joining the [SwissRN Academy](https://www.swissrn.org/contents/academy/) 
 :::
 
 ::: {.column width="20%"}
 ![](img/swissrn_logo.png)
+
+![SwissRN mailing list](img/swissrn_mailing_list_qr.png)
 :::
 :::::
-
-------------------------------------------------------------------------
-
-## CRS Primers
-
-:::::: columns
-::: {.column width="45%"}
-![<https://doi.org/10.5281/zenodo.15792190>](img/primer-make.png)
-:::
-
-:::: {.column width="45%"}
-![<https://doi.org/10.5281/zenodo.13757230>](img/primer-containers.png)
-::::
-:::::
-
-------------------------------------------------------------------------
