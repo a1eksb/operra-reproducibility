@@ -113,13 +113,16 @@ A real example from a real paper: R code dumped in a .docx file and shared in th
 
 After today's workshop, you have any of the following:
 
--  A `version-controlled Git repository` published on GitHub
+::: incremental
+-  A `version-controlled repository` published on GitHub
 -  A `dynamic report` conducting an analysis 
--  An `automated workflow`running the analysis
+-  An `automated workflow` running the analysis
 -  A `Dockerfile` capturing the software dependencies
+:::
 
+::: fragment
 We still need **persistent identification**.
-
+:::
 ------------------------------------------------------------------------
 
 ## Git repositories and DOIs
