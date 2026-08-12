@@ -3,7 +3,7 @@ title: "Introduction: Computational Reproducibility"
 date: today
 date-format: long
 author:
-  - Fabio Molo
+  - Fabio Molo & Daniel Stekhoven
 editor: source
 preview-links: true
 include-in-header:
@@ -20,11 +20,11 @@ format:
     pdf: true
     smaller: true
     auto-stretch: false
-    logo: "img/uzh_logo_d_pos_web_assoc.jpg"
+    logo: "img/eth-uzh-logo-pos-en.png"
     embed-resources: true
     progress: true
     slide-number: true
-    footer: "Center for Reproducible Science and Research Synthesis | [Home](../../index.qmd)"
+    footer: "Center for Reproducible Science and Research Synthesis & NEXUS Personalized Health | [Home](../../index.qmd)"
     title-slide-attributes:
       data-background-size: contain
       data-background-position: bottom
@@ -80,11 +80,38 @@ $\rightarrow$ **Computational reproducibility can be challenging in practice!**
 
 ------------------------------------------------------------------------
 
+## Is this a recent issue?
+
+![@baker2016](img/repro_crisis_pie.png){fig-align="center" width="50%"}
+
+::: fragment
+10 years ago, 90% of interviewed research thought there was an issue...
+:::
+
+::: fragment
+...that's when Brexit happened!
+:::
+
+------------------------------------------------------------------------
+
 ## Context and terminology
 
-<br>
+![@Turing2024](img/repro_definitions.png){fig-align="center" width="75%"}
 
-![@theturingwaycommunity2022](img/turingway_reproducible_matrix.jpg){fig-align="center" width="75%"}
+------------------------------------------------------------------------
+
+## The four horsemen of irreproducibility
+
+![Inspired by @bishop2019](img/four_horsemen.jpg){fig-align="center" width="100%"}
+
+<table>
+  <tr>
+    <td class="fragment">Publication bias</td>
+    <td class="fragment">Low power</td>
+    <td class="fragment">p-value hacking</td>
+    <td class="fragment">HARKing</td>
+  </tr>
+</table>
 
 ------------------------------------------------------------------------
 
@@ -93,6 +120,12 @@ $\rightarrow$ **Computational reproducibility can be challenging in practice!**
 ![](img/reproducible.png){.absolute right="0" top="0" height="75"}
 
 ![Inspired by @peng2011 and @Peikert2021](img/comp-repro-spectrum.png)
+
+------------------------------------------------------------------------
+
+## Write everything down?
+
+![@Turing2024](img/comp_repro_alltheway.jpg){fig-align="center" width="75%"}
 
 ------------------------------------------------------------------------
 
@@ -171,6 +204,18 @@ Do not despair. With every step...
 
 ------------------------------------------------------------------------
 
+## Trying to self assess
+
+![@gerber2026](img/2025-02-21_reprolevels_v1.png){fig-align="center" width="100%"}
+
+------------------------------------------------------------------------
+
+## ...once more!
+
+![@Turing2024](img/repro_definitions.png){fig-align="center" width="75%"}
+
+------------------------------------------------------------------------
+
 
 ## The SwissRN OPeR-RA workshops
 
@@ -198,7 +243,6 @@ Do not despair. With every step...
 :::
 :::::
 
-
 ------------------------------------------------------------------------
 
 ## The Center for Reproducible Science and Research Synthesis
@@ -224,6 +268,36 @@ Do not despair. With every step...
 -   Open research data
 -   Methods for replication studies
 -   Assessing and improving research  quality
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## NEXUS Personalized Health
+
+::::: {.columns align="center"}
+::: {.column width="50%"}
+![](img/nexus_logo_schwarz_medium.png){width="100%"}
+
+<https://www.nexus.ethz.ch>
+
+:::
+
+::: {.column width="50%" align="top"}
+**Technology Platform**
+
+-   Research services in **biomedical research and development**
+-   Open to all researchers, also in industry
+-   Fee-for-service model ([pricing](https://www.nexus.ethz.ch/working-with-us/pricing.html))
+
+**Groups**
+
+-   Clinical Bioinformatics
+-   Biostatistics
+-   Software Engineering
+-   Screening & Lab Automation
+-   Systems Operations
+
 :::
 :::::
 
