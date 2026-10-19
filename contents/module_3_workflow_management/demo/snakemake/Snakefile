@@ -1,7 +1,7 @@
 # Zurich newborn-names analysis from Module 2:
 # 1. Python downloads and cleans the source data    → work/1_names_clean.csv
 # 2. R selects yearly winners, retaining ties       → work/2_yearly_winners.csv
-# 3. Polars prepares both plot datasets             → work/3_*.csv
+# 3. pandas prepares both plot datasets             → work/3_*.csv
 # 4. Quarto renders the adapted Module 2 report     → results/4_report.html
 #
 # Run with:  snakemake --cores 1

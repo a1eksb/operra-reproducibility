@@ -3,7 +3,7 @@
 import argparse
 from pathlib import Path
 
-import polars as pl
+import pandas as pd
 
 
 def main() -> None:
@@ -13,34 +13,30 @@ def main() -> None:
     parser.add_argument("--selected-names-output", required=True, type=Path)
     args = parser.parse_args()
 
-    clean = pl.read_csv(args.input)
+    clean = pd.read_csv(args.input)
 
     top_names = (
-        clean.filter(pl.col("year").is_between(2021, 2025))
-        .group_by(["sex", "name"])
-        .agg(pl.col("births").sum())
-        .with_columns(
-            pl.col("births")
-            .rank(method="min", descending=True)
-            .over("sex")
-            .alias("birth_rank")
-        )
-        .filter(pl.col("birth_rank") <= 10)
-        .drop("birth_rank")
-        .sort(["sex", "births", "name"], descending=[False, True, False])
+        clean[clean["year"].between(2021, 2025)]
+        .groupby(["sex", "name"], as_index=False)["births"]
+        .sum()
+    )
+    # "min" ranking keeps every name tied at the cutoff.
+    birth_rank = top_names.groupby("sex")["births"].rank(method="min", ascending=False)
+    top_names = top_names[birth_rank <= 10].sort_values(
+        ["sex", "births", "name"], ascending=[True, False, True]
     )
 
     selected_names = (
-        clean.filter(pl.col("name").is_in(["Peter", "Daniel"]))
-        .group_by(["year", "name"])
-        .agg(pl.col("births").sum())
-        .sort(["name", "year"])
+        clean[clean["name"].isin(["Peter", "Daniel"])]
+        .groupby(["year", "name"], as_index=False)["births"]
+        .sum()
+        .sort_values(["name", "year"])
     )
 
     args.top_names_output.parent.mkdir(parents=True, exist_ok=True)
     args.selected_names_output.parent.mkdir(parents=True, exist_ok=True)
-    top_names.write_csv(args.top_names_output)
-    selected_names.write_csv(args.selected_names_output)
+    top_names.to_csv(args.top_names_output, index=False)
+    selected_names.to_csv(args.selected_names_output, index=False)
 
 
 if __name__ == "__main__":

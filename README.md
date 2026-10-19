@@ -7,7 +7,6 @@
 ![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=flat-square&logo=latex&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![Snakemake](https://img.shields.io/badge/Snakemake-039475?style=flat-square)
-![Nextflow](https://img.shields.io/badge/Nextflow-0DC09D?style=flat-square&logo=nextflow&logoColor=white)
 
 Part of the [OPeR-RA workshop series](https://www.swissrn.org/contents/activities/operra/).
 
@@ -16,7 +15,7 @@ but complete reproducible project: a dynamic report generated from real data, an
 analysis pipeline you run end to end, the container it all runs inside, and a
 published archive with its own DOI.
 
-**No prior experience with Git, Docker, Snakemake or Nextflow is expected.** Having seen some R or Python before helps in Module 2, but the exercises are written to be followed without it. The workshop environment runs in your browser, so there is nothing to install.
+**No prior experience with Git, Docker or Snakemake is expected.** Having seen some R or Python before helps in Module 2, but the exercises are written to be followed without it. The workshop environment runs in your browser, so there is nothing to install.
 
 The website for this workshop is: <https://a1eksb.github.io/operra-reproducibility/>
 
@@ -169,9 +168,8 @@ operra-reproducibility/
 │   ├── module_3_workflow_management/# Chaining analysis steps into a reproducible pipeline
 │   │   ├── slides/
 │   │   └── demo/
-│   │       ├── index.qmd            # Exercise instructions tying the two pipelines together
-│   │       ├── snakemake/           # Complete runnable Snakemake pipeline
-│   │       └── nextflow/            # The same pipeline in Nextflow
+│   │       ├── index.qmd            # Exercise instructions for the pipeline
+│   │       └── snakemake/           # Complete runnable Snakemake pipeline
 │   │
 │   ├── module_4_containers/         # Docker and containerising an analysis
 │   │   ├── slides/
@@ -183,7 +181,7 @@ operra-reproducibility/
 │
 ├── .devcontainer/                   # Codespaces dev container settings
 ├── .github/workflows/               # GitHub Actions that build the workshop docker image and deploy the site to Pages
-├── Dockerfile                       # Workshop dockerfile that defines the image: R + Python + Quarto, Snakemake and Nextflow
+├── Dockerfile                       # Workshop dockerfile that defines the image: R + Python + Quarto and Snakemake
 ├── docker-compose.yaml              # Runs that image as RStudio Server on localhost:8787
 ├── .dockerignore                    # Limits the Docker build context to Dockerfile + requirements
 ├── requirements.txt                 # Pinned Python packages installed into the image and CI

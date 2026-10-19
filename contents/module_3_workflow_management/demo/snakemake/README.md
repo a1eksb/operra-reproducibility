@@ -14,7 +14,7 @@ work/1_names_clean.csv
    |
    +-- 2_summarize.R (dplyr) ------> work/2_yearly_winners.csv --+
    |                                                              |
-   +-- 3_prepare_plots.py (Polars)                                 |
+   +-- 3_prepare_plots.py (pandas)                                 |
           +-- output 1: work/3_top_names.csv ----------------------+--> 4_report.qmd
           +-- output 2: work/3_selected_names.csv -----------------+          |
                                                                        results/4_report.html

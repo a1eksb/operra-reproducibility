@@ -8,14 +8,11 @@ execute:
   eval: false
 ---
 
-# One analysis, two workflow engines
+# From report to workflow
 
 In Module 2, you created a dynamic report about newborn names in Zurich. In
-this exercise, you will turn that analysis into a reproducible workflow.
-
-Choose **either Snakemake or Nextflow**. You do not need to complete both
-versions. They run the same analysis scripts and create the same datasets; only
-the workflow engine and its file layout differ.
+this exercise, you will turn that analysis into a reproducible Snakemake
+workflow.
 
 ```text
 Zurich Open Data URL
@@ -26,7 +23,7 @@ Zurich Open Data URL
    |
    +-- 2_summarize.R (dplyr) ------> 2_yearly_winners.csv --+
    |                                                         |
-   +-- 3_prepare_plots.py (Polars)                            |
+   +-- 3_prepare_plots.py (pandas)                            |
           +-- output 1: 3_top_names.csv ----------------------+--> 4_report.qmd
           +-- output 2: 3_selected_names.csv -----------------+          |
                                                                   4_report.html
@@ -36,23 +33,13 @@ The two analysis branches can run independently after the data have been
 cleaned. `3_prepare_plots.py` is one workflow step that emits two plot-ready
 datasets. The report waits for all three result datasets.
 
-## 1. Choose an engine
+## 1. Bring your Module 2 report into the workflow
 
-The examples are in:
-
-- `demo/snakemake/`
-- `demo/nextflow/`
-
-The remaining instructions use `ENGINE` as a placeholder. Replace it with
-`snakemake` or `nextflow`.
-
-## 2. Bring your Module 2 report into the workflow
-
-Copy the `.qmd` report you wrote in Module 2 into your chosen workflow
-directory and name the copy `4_report.qmd`:
+Copy the `.qmd` report you wrote in Module 2 into the workflow directory and
+name the copy `4_report.qmd`:
 
 ```bash
-cd /home/rstudio/project/contents/module_3_workflow_management/demo/ENGINE
+cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
 cp "/path/to/your-module-2-report.qmd" 4_report.qmd
 ```
 
@@ -66,28 +53,28 @@ Keep the structure and reporting features you already created, including the
 prose, citations, cross-references, inline values, figures, tables, and
 environment information.
 
-## 3. Adapt the report to workflow inputs
+## 2. Adapt the report to workflow inputs
 
 Remove the code that downloads and transforms the source data. Replace it with
 code that reads the datasets produced by the workflow:
 
-| Purpose | Snakemake report path | Nextflow report path |
-|---|---|---|
-| Clean names data | `work/1_names_clean.csv` | `1_names_clean.csv` |
-| Winners by year and sex | `work/2_yearly_winners.csv` | `2_yearly_winners.csv` |
-| Top names for 2021--2025 | `work/3_top_names.csv` | `3_top_names.csv` |
-| Peter and Daniel over time | `work/3_selected_names.csv` | `3_selected_names.csv` |
+| Purpose | Report path |
+|---|---|
+| Clean names data | `work/1_names_clean.csv` |
+| Winners by year and sex | `work/2_yearly_winners.csv` |
+| Top names for 2021--2025 | `work/3_top_names.csv` |
+| Peter and Daniel over time | `work/3_selected_names.csv` |
 
-For example, use the appropriate path from the table:
+For example:
 
 ```r
-names_clean <- read.csv("ENGINE-SPECIFIC-PATH")
+names_clean <- read.csv("work/1_names_clean.csv")
 ```
 
 ```python
 import pandas as pd
 
-names_clean = pd.read_csv("ENGINE-SPECIFIC-PATH")
+names_clean = pd.read_csv("work/1_names_clean.csv")
 ```
 
 Adapt the report so that it:
@@ -101,9 +88,7 @@ Adapt the report so that it:
 The workflow owns data acquisition and processing. The report should only read
 the prepared results, present them, and explain them.
 
-# Snakemake route
-
-## Run the workflow
+# Run the workflow
 
 ```bash
 cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
@@ -137,66 +122,22 @@ snakemake --report execution-report.html
 The rule graph shows the workflow definition. The DAG shows the concrete jobs
 and files for this run.
 
-# Nextflow route
-
-## Run the workflow
-
-```bash
-cd /home/rstudio/project/contents/module_3_workflow_management/demo/nextflow
-nextflow run main.nf
-```
-
-Nextflow publishes the prepared datasets and `4_report.html` to `results/`.
-It also stores task executions in its hashed `work/` directories.
-
-Use `-resume` after the first run so that unchanged tasks are reused:
-
-```bash
-nextflow run main.nf -resume
-```
-
-Editing `4_report.qmd` should rerun only `FINAL_REPORT`. Editing
-`2_summarize.R` should rerun that process and the report. Editing `1_clean.py`
-should rerun all downstream processes.
-
-## Inspect the graph and reports
-
-```bash
-nextflow run main.nf -resume \
-  -with-dag flowchart.svg \
-  -with-report execution-report.html \
-  -with-timeline timeline.html
-```
-
-You can publish to a different directory when experimenting:
-
-```bash
-nextflow run main.nf -resume --outdir alternative-results
-```
-
 # Running outside Codespaces
 
-The repository container includes both workflow engines and their required
-software. From the repository root:
+The repository container includes Snakemake and the software the workflow
+needs. From the repository root:
 
 ```bash
 docker compose up -d
 docker compose exec pyverse bash
 ```
 
-Then change to the selected workflow directory inside the container and run
-the corresponding command above.
+Then change to `demo/snakemake` inside the container and run the commands
+above.
 
-# Compare the workflow behaviour
+# Understand the workflow
 
-| Question | Snakemake | Nextflow |
-|---|---|---|
-| Where do tasks run? | In the project directory | In isolated hashed `work/` directories |
-| How are results exposed? | Rules write explicit paths | `publishDir` copies selected outputs |
-| How is work reused? | File dependencies and timestamps | Cached task inputs, code, and execution metadata with `-resume` |
-| Where is the final report? | `results/4_report.html` | `results/4_report.html` |
-
-Whichever engine you chose, identify:
+Identify:
 
 1. which step downloads and cleans the data;
 2. which two steps can run in parallel;
@@ -205,8 +146,7 @@ Whichever engine you chose, identify:
 
 # Troubleshooting
 
-- Run commands from the selected engine directory.
-- In the Nextflow report, use the staged filenames without a `results/` prefix.
-- In the Snakemake report, use the paths under `work/`.
+- Run commands from `demo/snakemake`.
+- In the report, use the paths under `work/`.
 - Keep `references.bib` beside `4_report.qmd` if the report uses it.
 - Open `results/4_report.html`, not a previously rendered Module 2 file.

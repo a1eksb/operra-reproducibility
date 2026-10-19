@@ -19,8 +19,6 @@ _freeze/
 /.claude/
 
 # Workflow scratch and outputs (demo workflows)
-.nextflow/
-.nextflow.log*
 .snakemake/
 **/demo/*/work/
 **/demo/*/results/

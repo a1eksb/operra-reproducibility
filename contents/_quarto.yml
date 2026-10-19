@@ -2,13 +2,7 @@ project:
   type: website
   render:
     - "**/*.qmd"
-    - "!**/demo/nextflow/[0-9]*.qmd"
     - "!**/demo/snakemake/[0-9]*.qmd"
-    # Workflow scratch directories may contain transient .qmd copies that
-    # Nextflow / Snakemake stage and delete between Quarto's enumerate and stat.
-    - "!**/demo/*/work/**"
-    - "!**/demo/*/results/**"
-    - "!**/demo/*/.snakemake/**"
 
 website:
     title: Home

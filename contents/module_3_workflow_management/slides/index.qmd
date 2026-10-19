@@ -160,7 +160,7 @@ clean:
 
 ## Hands-on: continue the Module 2 analysis
 
-Choose **Snakemake or Nextflow**, then copy and adapt your Module 2 report.
+Use **Snakemake** to copy and adapt your Module 2 report.
 
 ``` text
 Zurich Open Data URL
