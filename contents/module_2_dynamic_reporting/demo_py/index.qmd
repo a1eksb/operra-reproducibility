@@ -18,13 +18,17 @@ This hands-on requires Python and Quarto. Visit the [instructions](../../instruc
 
 # Create a new Quarto file
 
-1)  In VS Code, create a new file with the .qmd extension
-2)  Click on the button `Preview` on the top right corner of the editor or use the shortcut `Ctrl + Shift + K` to render a preview of the document
-3)  An .html file with the same name as your .qmd file should have been generated
+1)  In the RStudio menu, go to `File > New File > Quarto Document...`
+2)  Use the default settings and click `Create`
+3)  Save the file as `report.qmd` in the project folder `/home/rstudio/project` (`File > Save`)
+4)  Click on the button `Render` with the blue arrow on top of the editor
+5)  A file `report.html` should have been generated next to `report.qmd`
 
 <h3>🎉 Congratulations, you have generated your first dynamic report! 🎊  </h3>
 
 We will now modify the report with our own content.
+
+First, remove all the content that was added by default by RStudio, from `Content` on downwards.
 
 # Editing the YAML header
 
@@ -99,7 +103,7 @@ A useful link is this [Markdown guide](https://quarto.org/docs/authoring/markdow
 > An impressive quote
 ```
 
-This type of text editing is different from WYSIWYG (*What you see is what you get*) editors, such as Microsoft Word. In VS Code, rendering a .qmd file creates a new window next to your source code that shows a preview of the formatted document and provides a WYSIWYG-like interface.
+This type of text editing is different from WYSIWYG (*What you see is what you get*) editors, such as Microsoft Word. In RStudio, it is possible to switch between the `visual` and `source` modes (topleft corner of the editor). The `source` mode displays the raw code, while the `visual` tab shows a live preview of the formatted document and provides WYSIWYG-like interface. This makes it easier to see how your report will look when rendered and can be useful if you do not know certain Markdown syntax. Nevertheless, we recommend to use the `source` mode as the default as it displays the raw code.
 
 <!-- ![](https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg){fig-align="center" width="273"} -->
 
@@ -110,7 +114,7 @@ This type of text editing is different from WYSIWYG (*What you see is what you g
 ::: {.callout-tip collapse="false"}
 #### Code chunk options
 
-Code chunks are delimited by ```` ```{python} ```` (you can specify other languages like R, Julia, ObservableJS). For each code you can add *chunk options* to the code chunks with `#|`, for example `#| echo: false` will hide the code. In VS Code you can see the options available if you type `#| ` (note the whitespace) and then press `Ctrl + Space`. Many options can be set globally for the entire document on the YAML header (e.g., under `execute:`, under `html:`, or under `pdf:`).
+Code chunks are delimited by ```` ```{python} ```` (you can specify other languages like R, Julia, ObservableJS). For each code you can add *chunk options* to the code chunks with `#|`, for example `#| echo: false` will hide the code. In RStudio you can see the options available if you type `#|` and then press the TAB key on your keyboard. Many options can be set globally for the entire document on the YAML header (e.g., under `execute:`, under `html:`, or under `pdf:`).
 :::
 
 ### Load libraries

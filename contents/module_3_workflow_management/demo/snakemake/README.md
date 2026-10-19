@@ -26,14 +26,19 @@ them independently before rendering the report.
 
 ## Prepare your report
 
-Copy the report you created in Module 2 over the supplied template:
+Copy the `report.qmd` you created in Module 2 over the supplied template:
 
 ```bash
-cp "/path/to/your-module-2-report.qmd" 4_report.qmd
+cp /home/rstudio/project/report.qmd 4_report.qmd
 ```
 
-If it uses a local bibliography, also copy `references.bib` into this
-directory. Adapt the report to read the four CSV paths shown above instead of
+If it uses a local bibliography, also copy it into this directory:
+
+```bash
+cp /home/rstudio/project/references.bib references.bib
+```
+
+Adapt the report to read the four CSV paths shown above instead of
 downloading and transforming the source data itself.
 
 ## Run in GitHub Codespaces

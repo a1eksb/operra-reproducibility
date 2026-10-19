@@ -4,8 +4,6 @@ format:
   html:
     toc-depth: 4
 engine: markdown
-execute:
-  eval: false
 ---
 
 # From report to workflow
@@ -14,19 +12,25 @@ In Module 2, you created a dynamic report about newborn names in Zurich. In
 this exercise, you will turn that analysis into a reproducible Snakemake
 workflow.
 
-```text
-Zurich Open Data URL
-         |
-   1_clean.py (pandas)
-         |
-1_names_clean.csv
-   |
-   +-- 2_summarize.R (dplyr) ------> 2_yearly_winners.csv --+
-   |                                                         |
-   +-- 3_prepare_plots.py (pandas)                            |
-          +-- output 1: 3_top_names.csv ----------------------+--> 4_report.qmd
-          +-- output 2: 3_selected_names.csv -----------------+          |
-                                                                  4_report.html
+Your report stays in the language you chose in Module 2. The workflow around it
+uses Python and R side by side: each step can use the language that suits it
+best, and the steps pass results to each other as files.
+
+```{mermaid}
+%%| fig-cap: "The yellow box is the report you wrote in Module 2. The green boxes are the initial input and the final output."
+%%{init: {"flowchart": {"rankSpacing": 25, "nodeSpacing": 25, "padding": 8}}}%%
+flowchart TD
+  url["Zurich Open Data URL"] --> clean["1_clean.py (pandas)"]
+  clean -->|"1_names_clean.csv"| summarize["2_summarize.R (dplyr)"]
+  clean -->|"1_names_clean.csv"| prepare["3_prepare_plots.py (pandas)"]
+  summarize -->|"2_yearly_winners.csv"| report["4_report.qmd"]
+  prepare -->|"3_top_names.csv"| report
+  prepare -->|"3_selected_names.csv"| report
+  report --> html["4_report.html"]
+  classDef endpoint fill:#d1e7dd,stroke:#198754,color:#0f5132
+  class url,html endpoint
+  classDef module2 fill:#fff3cd,stroke:#997404,color:#664d03,stroke-dasharray: 4 3
+  class report module2
 ```
 
 The two analysis branches can run independently after the data have been
@@ -35,18 +39,18 @@ datasets. The report waits for all three result datasets.
 
 ## 1. Bring your Module 2 report into the workflow
 
-Copy the `.qmd` report you wrote in Module 2 into the workflow directory and
+Copy the `report.qmd` you wrote in Module 2 into the workflow directory and
 name the copy `4_report.qmd`:
 
 ```bash
 cd /home/rstudio/project/contents/module_3_workflow_management/demo/snakemake
-cp "/path/to/your-module-2-report.qmd" 4_report.qmd
+cp /home/rstudio/project/report.qmd 4_report.qmd
 ```
 
 If your report uses a local bibliography, copy it too:
 
 ```bash
-cp "/path/to/references.bib" references.bib
+cp /home/rstudio/project/references.bib references.bib
 ```
 
 Keep the structure and reporting features you already created, including the

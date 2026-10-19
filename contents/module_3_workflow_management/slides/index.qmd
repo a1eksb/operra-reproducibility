@@ -162,22 +162,24 @@ clean:
 
 Use **Snakemake** to copy and adapt your Module 2 report.
 
-``` text
-Zurich Open Data URL
-         |
-   clean names
-         |
-1_names_clean.csv
-   |
-   +-- summarize yearly --> 2_yearly_winners.csv --+
-   |                                                   |
-   +-- prepare plots                                   +--> adapted report
-          +-- output 1: 3_top_names.csv ---------------+         |
-          +-- output 2: 3_selected_names.csv ----------+    4_report.html
+```{mermaid}
+%%| fig-cap: "The yellow box is the report you wrote in Module 2. The green boxes are the initial input and the final output."
+%%{init: {"flowchart": {"rankSpacing": 25, "nodeSpacing": 25, "padding": 8}}}%%
+flowchart LR
+  url["Zurich Open Data URL"] --> clean["clean names"]
+  clean -->|"1_names_clean.csv"| summarize["summarize yearly"]
+  clean -->|"1_names_clean.csv"| prepare["prepare plots"]
+  summarize -->|"2_yearly_winners.csv"| report["adapted report"]
+  prepare -->|"3_top_names.csv"| report
+  prepare -->|"3_selected_names.csv"| report
+  report --> html["4_report.html"]
+  classDef endpoint fill:#d1e7dd,stroke:#198754,color:#0f5132
+  class url,html endpoint
+  classDef module2 fill:#fff3cd,stroke:#997404,color:#664d03,stroke-dasharray: 4 3
+  class report module2
 ```
 
-The plot-preparation step is one task that emits two files. Both workflow
-variants perform the same analysis and differ only in orchestration and paths.
+The plot-preparation step is one task that emits two files.
 
 ------------------------------------------------------------------------
 

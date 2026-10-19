@@ -17,11 +17,11 @@ This hands-on requires R and Quarto. Visit the [instructions](../../instructions
 
 # Create a new Quarto file
 
-1)  In the RStudio menu, go to `File > New File > Quarto document`
-2)  Use the default settings and enter a filename
-3)  Save the file with a .qmd filename extension
-4)  Click on the button `Render` with the blue arrow on top of the editor in RStudio
-5)  An .html file with the same name as your .qmd file should have been generated
+1)  In the RStudio menu, go to `File > New File > Quarto Document...`
+2)  Use the default settings and click `Create`
+3)  Save the file as `report.qmd` in the project folder `/home/rstudio/project` (`File > Save`)
+4)  Click on the button `Render` with the blue arrow on top of the editor
+5)  A file `report.html` should have been generated next to `report.qmd`
 
 <h3>🎉 Congratulations, you have generated your first dynamic report! 🎊  </h3>
 
