@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this workshop material, please cite it as below."
+title: "SwissRN Workshop on Computational Reproducibility"
+authors:
+  - family-names: Molo
+    given-names: Fabio
+    orcid: "https://orcid.org/0000-0001-9320-5854"
+  - family-names: Stekhoven
+    given-names: Daniel
+    orcid: "https://orcid.org/0000-0003-3163-3161"
+  - family-names: Bobic
+    given-names: Aleksandar
+    orcid: "https://orcid.org/0000-0001-5403-8475"
+date-released: 2026-08-12
+doi: 10.5281/zenodo.21900425
+url: "https://a1eksb.github.io/operra-reproducibility/"
+repository-code: "https://github.com/a1eksb/operra-reproducibility"
+license: CC-BY-4.0
