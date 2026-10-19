@@ -156,18 +156,6 @@ bibliography: references.bib
 
 ------------------------------------------------------------------------
 
-## Quarto -- where to start?
-
-1.  Install Quarto (<https://quarto.org/docs/get-started/>)
-
-2.  Set up a minimal Quarto workflow for one of your projects
-
-3.  Document your steps, read guides, ask for help
-
-4.  Live a dynamic and reproducible life
-
-------------------------------------------------------------------------
-
 ## Additional Resources
 
 -   CRS Primer on dynamic reporting: <https://doi.org/10.5281/zenodo.7565735>\
