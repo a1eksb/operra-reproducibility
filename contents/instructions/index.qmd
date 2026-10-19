@@ -1,5 +1,5 @@
 ---
-title: "Instructions" 
+title: "Instructions"
 
 date: today
 
@@ -16,6 +16,11 @@ Requirements:
 With this option, you will work in a GitHub codespace.
 
 - Fork this repository to your account: <https://github.com/a1eksb/operra-reproducibility>
+
+- Set the codespace idle timeout to 4 hours, so your codespace does not stop during breaks. Do this before you create the codespace (the setting only applies to codespaces created afterwards).
+  1. Profile picture (top right on GitHub) > Settings
+  2. In the sidebar, under "Code, planning, and automation", click Codespaces
+  3. Under "Default idle timeout", enter `240` minutes and click Save
 
 - Create a new codespace.
   1. Code (green button) > Codespaces
